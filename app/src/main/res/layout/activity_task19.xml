@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    tools:context=".Task19Activity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+            <Space
+                android:layout_height="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.05"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/text"
+                android:text="@string/_19"
+                android:textSize="17sp" />
+
+            <Space
+                android:layout_height="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.05"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_weight="0"
+                android:background="@drawable/rectangle"
+                android:foregroundGravity="top"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <Space
+                android:layout_height="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.05"/>
+
+            <TextView
+                android:id="@+id/countOfHeaps1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/text"
+                android:text="@string/NumberOfHeaps"
+                android:textSize="16sp" />
+
+            <Space
+                android:layout_height="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.08"/>
+
+            <LinearLayout
+                android:id="@+id/layoutMove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textColor="@color/text"
+                    android:text="@string/Move"
+                    tools:ignore="NestedWeights" />
+
+                <Button
+                    android:id="@+id/anyMove"
+                    android:background="@drawable/button_task19"
+                    android:textColor="@color/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:text="@string/AnyMove" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.3"/>
+
+                <Button
+                    android:id="@+id/unluckyMove"
+                    android:background="@drawable/button_task19"
+                    android:textColor="@color/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:text="@string/UnluckyMove" />
+
+                <Space
+                    android:layout_width="9dp"
+                    android:layout_height="0dp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_height="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.08"/>
+
+            <LinearLayout
+                android:id="@+id/layoutCountOfKoef"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/text"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/NumberOfKoefs"
+                    tools:ignore="NestedWeights" />
+
+                <Button
+                    android:id="@+id/koef2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:background="@drawable/button_task19"
+                    android:textColor="@color/text"
+                    android:text="@string/_2Koef" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.3"/>
+
+                <Button
+                    android:id="@+id/koef3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_task19"
+                    android:textColor="@color/text"
+                    android:layout_weight="1"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:text="@string/_3Koef" />
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="0dp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_height="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.08"/>
+
+            <LinearLayout
+                android:id="@+id/layoutBranch3Koef"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02"
+                android:visibility="gone"
+                android:orientation="horizontal">
+z
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/text"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="@string/CannotRepeatTheMove"
+                    tools:ignore="NestedWeights" />
+
+                <Button
+                    android:id="@+id/yesButton"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_task19"
+                    android:text="@string/Yes"
+                    android:textColor="@color/text"
+                    android:textSize="13sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.3"/>
+
+                <Button
+                    android:id="@+id/noButton"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_task19"
+                    android:text="@string/No"
+                    android:textColor="@color/text"
+                    android:textSize="13sp" />
+
+                <Space
+                    android:layout_width="10dp"
+                    android:layout_height="0dp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_height="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.08"/>
+
+            <LinearLayout
+                android:id="@+id/whichMove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
+
+                <Button
+                    android:id="@+id/myMove"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_task19"
+                    android:text="@string/MyLastOne"
+                    android:textColor="@color/text"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/anotherPlayer"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_task19"
+                    android:text="@string/AnotherPlayer"
+                    android:textColor="@color/text"
+                    android:textSize="12sp" />
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="0dp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_height="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.08"/>
+
+            <TextView
+                android:id="@+id/chooseAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05"
+                android:gravity="center"
+                android:text="@string/ChooseAction"
+                android:textColor="@color/text"
+                android:visibility="gone"
+                android:textSize="16sp" />
+
+            <Space
+                android:id="@+id/space1"
+                android:layout_height="10dp"
+                android:layout_width="0dp"
+                android:visibility="gone"
+                android:layout_weight="0.08"/>
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_weight="0"
+                android:background="@drawable/rectangle"
+                android:foregroundGravity="top"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <LinearLayout
+                android:id="@+id/layoutListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="243dp"
+                    android:background="@color/background"
+                    android:divider="@color/button"
+                    android:dividerHeight="0.5dp"
+                    android:focusable="true"
+                    android:choiceMode="singleChoice"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_weight="0"
+                android:background="@drawable/rectangle"
+                android:foregroundGravity="top"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <Space
+                android:id="@+id/space2"
+                android:layout_height="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.08"/>
+
+            <LinearLayout
+                android:id="@+id/layoutEdT1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/editText1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/EnterKoef"
+                    android:inputType="number"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/text2"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEdT2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/EnterKoef"
+                    android:inputType="number"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/text2"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEdT3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/editText3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/EnterKoef"
+                    android:inputType="number"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/text2"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEdT4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/editText4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/Winning"
+                    android:inputType="number"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/text2"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <Space
+                android:id="@+id/space3"
+                android:layout_height="10dp"
+                android:layout_width="0dp"
+                android:visibility="gone"
+                android:layout_weight="0.08"/>
+
+            <LinearLayout
+                android:id="@+id/answerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_weight="0.05"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/pvos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/PossibleValuesOfS"
+                    android:textColor="@color/text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/text"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/resultButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/button_task19"
+                android:textColor="@color/text"
+                android:text="@string/ResultButton" />
+
+            <Space
+                android:layout_height="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.08"/>
+
+            <Button
+                android:id="@+id/beginFromStart"
+                android:layout_width="match_parent"
+                android:layout_weight="0.05"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/button_task19"
+                android:textColor="@color/text"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:text="@string/BeginFromStart" />
+
+            <Space
+                android:layout_height="5dp"
+                android:layout_width="0dp"
+                android:layout_weight="0.08"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
