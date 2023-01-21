@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="@color/text"
-        android:background="@drawable/button"
+        android:background="@drawable/button_main_activity"
         style="?android:attr/borderlessButtonStyle"
         android:text="@string/_19" />
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:text="@string/_20"
         android:textColor="@color/text"
-        android:background="@drawable/button"
+        android:background="@drawable/button_main_activity"
         style="?android:attr/borderlessButtonStyle"
         android:layout_gravity="center"/>
 
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="@string/_21"
         android:textColor="@color/text"
-        android:background="@drawable/button"
+        android:background="@drawable/button_main_activity"
         style="?android:attr/borderlessButtonStyle"
         android:layout_gravity="center" />
 
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:text="@string/ComplexSolution"
         android:textColor="@color/text"
-        android:background="@drawable/button"
+        android:background="@drawable/button_main_activity"
         style="?android:attr/borderlessButtonStyle"
         android:layout_gravity="center" />
 

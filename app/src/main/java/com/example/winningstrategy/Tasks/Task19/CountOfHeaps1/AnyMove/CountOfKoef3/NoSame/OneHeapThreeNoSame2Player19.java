@@ -1,5 +1,7 @@
 package com.example.winningstrategy.Tasks.Task19.CountOfHeaps1.AnyMove.CountOfKoef3.NoSame;
 
+import android.annotation.SuppressLint;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class OneHeapThreeNoSame2Player19 {
         }
     }
 
-    public Object getResult(){
+    public List<Integer> getResult(){
         for(int x = 1; x < Winning; x++){
             if(Calculations(x, 1, 0)) {
                 list.add(x);

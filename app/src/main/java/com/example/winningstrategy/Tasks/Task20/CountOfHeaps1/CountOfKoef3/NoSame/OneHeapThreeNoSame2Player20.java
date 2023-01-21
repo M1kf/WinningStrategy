@@ -43,7 +43,7 @@ public class OneHeapThreeNoSame2Player20 {
         return false;
     }
 
-    public Object getResult(){
+    public List<Integer> getResult(){
         for(int x = 1; x <= Winning; x++){
             if(Calculations(x, 1, 0)) {
                 list.add(x);

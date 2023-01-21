@@ -49,7 +49,7 @@ public class OneHeapThree21 {
         }
     }
 
-    public Object getResult(){
+    public List<Integer> getResult(){
         for(int x = 1; x < Winning; x++){
             if(Calculations(x, 1))
                 list.add(x);

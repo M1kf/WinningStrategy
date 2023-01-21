@@ -1,19 +1,20 @@
 package com.example.winningstrategy;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.winningstrategy.Tasks.Task19.CountOfHeaps1.AnyMove.CountOfKoef2.OneHeapTwoAnd_PL_MU_19;
 import com.example.winningstrategy.Tasks.Task19.CountOfHeaps1.AnyMove.CountOfKoef2.OneHeapTwoAnd_PL_MU_MN_19;
@@ -31,39 +32,41 @@ import com.example.winningstrategy.Tasks.Task19.CountOfHeaps1.UnluckyMove.CountO
 import com.example.winningstrategy.Tasks.Task19.CountOfHeaps1.UnluckyMove.CountOfKoef3.OneHeapThreeOr19;
 
 import java.util.List;
+import java.util.Locale;
 
 public class Task19Activity extends AppCompatActivity implements View.OnClickListener {
-    Button AnyMoveButton, UnluckyMoveButton, Koef2Button, Koef3Button, YesButton, NoButton,
+    Button AnyMoveButton, UnluckyMoveButton, Factor2Button, Factor3Button, YesButton, NoButton,
             MyLastOneButton, AnotherPlayerButton, ResultButton, BeginFromStartButton;
-    TextView ChooseAction, Answer, CountOfHeaps1, Pvos;
-    View View1, View2;
+    TextView ChooseAction, Answer, CountOfHeaps1;
+    View Rectangle1, Rectangle2;
     ListView ListView;
-    Space Space1, Space2, Space3;
-    LinearLayout LayoutListView, LayoutEdT1, LayoutEdT2, LayoutEdT3, LayoutEdT4,
-            LayoutCountOfKoef, LayoutMove, AnswerLayout, LayoutBranch3Koef, LayoutWhichMove;
-    EditText EditText1, EditText2, EditText3, EditText4;
+    LinearLayout LayoutCountOfFactors, LayoutMove, AnswerLayout, LayoutBranch3Factors, LayoutWhichMove;
+    EditText StoneInputField1, StoneInputField2, FactorInputField, EnteredResult;
 
-    int index = -1;
+    int indexOfSelectedItem = -1;
     int saveIndexOfButton = -1;
-    boolean flAnyMoveButton, flUnluckyMoveButton, flKoef2Button, flKoef3Button, flYesButton,
-            flNoButton, somethingIsChecked, getAnswerIsSelected, noIsPressed, flMyLastOne,
-            flAnotherPlayer, ERROR;
-    final String[] arrayChooseAction = new String[]{"Добавить и умножить", "Добавить и добавить",
-            "Добавить и возвести", "Добавить, умножить и вычесть", "Добавить, умножить и добавить"};
+    private int count2factors = 0;
+    private int count3factors = 0;
+    String saveStoneInputField1;
+    String saveStoneInputField2;
+    String saveFactorInputField;
+    String saveEnteredResult;
+    int saveIndexList;
+    boolean flAnyMoveButton, flUnluckyMoveButton, flFactor2Button, flFactor3Button, flYesButton,
+            flNoButton, somethingIsChecked, getAnswerIsSelected, noWasPressed, flMyLastOne,
+            flAnotherPlayer, saveLayout, ERROR;
+    final String[] arrayChooseAction = new String[]{"Добавить или умножить", "Добавить или добавить",
+            "Добавить или возвести", "Добавить или умножить и вычесть", "Добавить или умножить и добавить"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task19);
-        init();
-    }
 
-    @SuppressLint("CutPasteId")
-    private void init(){
         AnyMoveButton = findViewById(R.id.anyMove);
         UnluckyMoveButton = findViewById(R.id.unluckyMove);
-        Koef2Button = findViewById(R.id.koef2);
-        Koef3Button = findViewById(R.id.koef3);
+        Factor2Button = findViewById(R.id.koef2);
+        Factor3Button = findViewById(R.id.koef3);
         YesButton = findViewById(R.id.yesButton);
         NoButton = findViewById(R.id.noButton);
         MyLastOneButton = findViewById(R.id.myMove);
@@ -73,8 +76,8 @@ public class Task19Activity extends AppCompatActivity implements View.OnClickLis
 
         AnyMoveButton.setOnClickListener(this);
         UnluckyMoveButton.setOnClickListener(this);
-        Koef2Button.setOnClickListener(this);
-        Koef3Button.setOnClickListener(this);
+        Factor2Button.setOnClickListener(this);
+        Factor3Button.setOnClickListener(this);
         YesButton.setOnClickListener(this);
         NoButton.setOnClickListener(this);
         MyLastOneButton.setOnClickListener(this);
@@ -85,159 +88,170 @@ public class Task19Activity extends AppCompatActivity implements View.OnClickLis
         ChooseAction = findViewById(R.id.chooseAction);
         Answer = findViewById(R.id.answer);
         CountOfHeaps1 = findViewById(R.id.countOfHeaps1);
-        Pvos = findViewById(R.id.pvos);
 
-        View1 = findViewById(R.id.view1);
-        View2 = findViewById(R.id.view2);
+        Rectangle1 = findViewById(R.id.view1);
+        Rectangle2 = findViewById(R.id.view2);
 
         ListView = findViewById(R.id.listView);
 
-        Space1 = findViewById(R.id.space1);
-        Space2 = findViewById(R.id.space2);
-        Space3 = findViewById(R.id.space3);
-
-        LayoutListView = findViewById(R.id.layoutListView);
-        LayoutEdT1 = findViewById(R.id.layoutEdT1);
-        LayoutEdT2 = findViewById(R.id.layoutEdT2);
-        LayoutEdT3 = findViewById(R.id.layoutEdT3);
-        LayoutEdT4 = findViewById(R.id.layoutEdT4);
         LayoutMove = findViewById(R.id.layoutMove);
-        LayoutCountOfKoef = findViewById(R.id.layoutCountOfKoef);
-        LayoutBranch3Koef = findViewById(R.id.layoutBranch3Koef);
+        LayoutCountOfFactors = findViewById(R.id.layoutCountOfKoef);
+        LayoutBranch3Factors = findViewById(R.id.layoutBranch3Koef);
         LayoutWhichMove = findViewById(R.id.whichMove);
         AnswerLayout = findViewById(R.id.answerLayout);
 
-        EditText1 = findViewById(R.id.editText1);
-        EditText2 = findViewById(R.id.editText2);
-        EditText3 = findViewById(R.id.editText3);
-        EditText4 = findViewById(R.id.editText4);
+        StoneInputField1 = findViewById(R.id.editText1);
+        StoneInputField2 = findViewById(R.id.editText2);
+        FactorInputField = findViewById(R.id.editText3);
+        EnteredResult = findViewById(R.id.editText4);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.list_white_text,
-                R.id.list_content, arrayChooseAction);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, arrayChooseAction) {
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view =super.getView(position, convertView, parent);
+
+                TextView item = view.findViewById(android.R.id.text1);
+                item.setGravity(Gravity.CENTER);
+                item.setTextColor(Color.parseColor("#cdcdcd"));
+
+                return view;
+            }
+
+        };
+
         ListView.setAdapter(adapter);
 
-        flAnyMoveButton = flUnluckyMoveButton = flKoef2Button = flKoef3Button = flYesButton = flNoButton
-            = somethingIsChecked = getAnswerIsSelected = ERROR = flMyLastOne = flAnotherPlayer =
-                noIsPressed =false;
+        flAnyMoveButton = flUnluckyMoveButton = flFactor2Button = flFactor3Button = flYesButton = flNoButton
+                = somethingIsChecked = getAnswerIsSelected = saveLayout = flMyLastOne = flAnotherPlayer =
+                noWasPressed = ERROR = false;
     }
 
-    @SuppressLint({"UseCompatLoadingForDrawables", "NonConstantResourceId", "SetTextI18n"})
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.anyMove:
                 if (flUnluckyMoveButton) {
-                    UnluckyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
+                    UnluckyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
                     flUnluckyMoveButton = false;
                 }
-                AnyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                AnyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                 flAnyMoveButton = true;
+                LayoutCountOfFactors.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.unluckyMove:
                 if (flAnyMoveButton) {
-                    AnyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
+                    AnyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
                     flAnyMoveButton = false;
                 }
-                UnluckyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                UnluckyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                 flUnluckyMoveButton = true;
+                LayoutCountOfFactors.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.koef2:
-                if (flKoef3Button) {
-                    Koef3Button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                    flKoef3Button = false;
+                if (flFactor3Button) {
+                    Factor3Button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                    flFactor3Button = false;
                 }
-                Koef2Button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
-                flKoef2Button = true;
-                LayoutBranch3Koef.setVisibility(View.GONE);
-                flYesButton = flNoButton = noIsPressed = false;
-                NoButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                YesButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
+
+                if (saveIndexOfButton == 2 && noWasPressed) {
+                    AnyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                    UnluckyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
+                    flAnyMoveButton = false;
+                    flUnluckyMoveButton = true;
+                }
+
+                count2factors++;
+                Factor2Button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
+                flFactor2Button = true;
+                ResultButton.setVisibility(View.VISIBLE);
+                LayoutBranch3Factors.setVisibility(View.GONE);
+                flYesButton = flNoButton = noWasPressed = false;
+                NoButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                YesButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
                 AnyMoveButton.setEnabled(true);
                 UnluckyMoveButton.setEnabled(true);
                 saveIndexOfButton = -1;
                 LayoutWhichMove.setVisibility(View.GONE);
-                AnotherPlayerButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                MyLastOneButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                flMyLastOne = flAnotherPlayer = false;
+                AnotherPlayerButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                MyLastOneButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                flMyLastOne = flAnotherPlayer = noWasPressed = false;
 
-                if (flAnyMoveButton){
-                    AnyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                if (flAnyMoveButton) {
+                    AnyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                     flAnyMoveButton = true;
-                    UnluckyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
+                    UnluckyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
                     flUnluckyMoveButton = false;
                 }
 
-                if (flUnluckyMoveButton){
-                    UnluckyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                if (flUnluckyMoveButton) {
+                    UnluckyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                     flUnluckyMoveButton = true;
-                    AnyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
+                    AnyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
                     flAnyMoveButton = false;
                 }
                 break;
 
             case R.id.koef3:
-                if (flKoef2Button) {
-                    Koef2Button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                    flKoef2Button = false;
+                if (flFactor2Button) {
+                    Factor2Button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                    flFactor2Button = false;
                 }
-                Koef3Button.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
-                flKoef3Button = true;
-                LayoutBranch3Koef.setVisibility(View.VISIBLE);
 
+                count3factors++;
+                Factor3Button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
+                flFactor3Button = true;
+                ResultButton.setVisibility(View.VISIBLE);
+                LayoutBranch3Factors.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.yesButton:
                 if (flNoButton) {
-                    NoButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
+                    NoButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
                     flNoButton = false;
                 }
-                YesButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                YesButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                 flYesButton = true;
                 AnyMoveButton.setEnabled(true);
                 UnluckyMoveButton.setEnabled(true);
 
-                if (saveIndexOfButton == 1 && noIsPressed){
-                    UnluckyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                    AnyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                if (saveIndexOfButton == 1 && noWasPressed) {
+                    UnluckyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                    AnyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
 
                     flAnyMoveButton = true;
                 }
 
-                if (saveIndexOfButton == 2 && noIsPressed) {
-                    AnyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                    UnluckyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                if (saveIndexOfButton == 2 && noWasPressed) {
+                    AnyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                    UnluckyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                     flAnyMoveButton = false;
                     flUnluckyMoveButton = true;
                 }
 
-                if (saveIndexOfButton == -1 && noIsPressed){
-                    flAnyMoveButton = false;
-                    AnyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                    UnluckyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                }
-
                 LayoutWhichMove.setVisibility(View.GONE);
-                AnotherPlayerButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                MyLastOneButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                flMyLastOne = flAnotherPlayer = false;
+                AnotherPlayerButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                MyLastOneButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                flMyLastOne = flAnotherPlayer = noWasPressed = false;
                 break;
 
             case R.id.noButton:
                 if (flYesButton) {
-                    YesButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
+                    YesButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
                     flYesButton = false;
                 }
-                NoButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                NoButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                 flNoButton = true;
 
-                noIsPressed = true;
+                noWasPressed = true;
 
                 if (flUnluckyMoveButton) {
                     saveIndexOfButton = 2;
-                    UnluckyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
-                    AnyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                    UnluckyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
+                    AnyMoveButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                     AnyMoveButton.setEnabled(false);
                     UnluckyMoveButton.setEnabled(false);
 
@@ -249,12 +263,6 @@ public class Task19Activity extends AppCompatActivity implements View.OnClickLis
                     UnluckyMoveButton.setEnabled(false);
                 }
 
-                if (!flAnyMoveButton && !flUnluckyMoveButton){
-                    AnyMoveButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
-                    AnyMoveButton.setEnabled(false);
-                    UnluckyMoveButton.setEnabled(false);
-                }
-
                 flAnyMoveButton = true;
                 flUnluckyMoveButton = false;
                 LayoutWhichMove.setVisibility(View.VISIBLE);
@@ -262,400 +270,645 @@ public class Task19Activity extends AppCompatActivity implements View.OnClickLis
 
             case R.id.myMove:
                 if (flAnotherPlayer) {
-                    AnotherPlayerButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
+                    AnotherPlayerButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
                     flAnotherPlayer = false;
                 }
-                MyLastOneButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                MyLastOneButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                 flMyLastOne = true;
                 break;
 
             case R.id.anotherPlayer:
                 if (flMyLastOne) {
-                    MyLastOneButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_task19));
+                    MyLastOneButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
                     flMyLastOne = false;
                 }
-                AnotherPlayerButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_pressed_19));
+                AnotherPlayerButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                 flAnotherPlayer = true;
                 break;
 
             case R.id.resultButton:
 
-                if ((!flAnyMoveButton && !flUnluckyMoveButton) ||
-                        (!flKoef2Button && !flKoef3Button) ||
-                        (flKoef3Button && !flYesButton && !flNoButton) ||
+                saveStoneInputField1 = StoneInputField1.getText().toString();
+                saveStoneInputField2 = StoneInputField2.getText().toString();
+                saveFactorInputField = FactorInputField.getText().toString();
+                saveEnteredResult = EnteredResult.getText().toString();
+
+                saveIndexList = indexOfSelectedItem;
+
+                if ((flFactor2Button && indexOfSelectedItem == -1) || (flFactor3Button && !flYesButton && !flNoButton) ||
                         (flNoButton && !flMyLastOne && !flAnotherPlayer) ||
-                        (flKoef3Button && (EditText1.getText().toString().isEmpty() ||
-                                EditText2.getText().toString().isEmpty() ||
-                                EditText3.getText().toString().isEmpty() ||
-                                EditText4.getText().toString().isEmpty())) ||
-                        (flKoef2Button && (index != 3 && index != 4) && (EditText1.getText().toString().isEmpty() ||
-                                EditText2.getText().toString().isEmpty() || EditText4.getText().toString().isEmpty())) ||
-                        (flKoef2Button && (index == 3 || index == 4) && (EditText1.getText().toString().isEmpty() ||
-                                EditText2.getText().toString().isEmpty() ||
-                                EditText3.getText().toString().isEmpty() ||
-                                EditText4.getText().toString().isEmpty())) ||
-                        (EditText1.getText().toString().length() > 4 ||
-                                EditText2.getText().toString().length() > 4 ||
-                                EditText3.getText().toString().length() > 4 ||
-                                EditText4.getText().toString().length() > 4)) {
+                        (flFactor3Button && (StoneInputField1.getText().toString().isEmpty() ||
+                                StoneInputField2.getText().toString().isEmpty() ||
+                                FactorInputField.getText().toString().isEmpty() ||
+                                EnteredResult.getText().toString().isEmpty())) ||
+                        (flFactor2Button && (indexOfSelectedItem != 3 && indexOfSelectedItem != 4) && (StoneInputField1.getText().toString().isEmpty() ||
+                                StoneInputField2.getText().toString().isEmpty() || EnteredResult.getText().toString().isEmpty())) ||
+                        (flFactor2Button && (indexOfSelectedItem == 3 || indexOfSelectedItem == 4) && (StoneInputField1.getText().toString().isEmpty() ||
+                                StoneInputField2.getText().toString().isEmpty() ||
+                                FactorInputField.getText().toString().isEmpty() ||
+                                EnteredResult.getText().toString().isEmpty())) ||
+                        (StoneInputField1.getText().toString().length() > 4 ||
+                                StoneInputField2.getText().toString().length() > 4 ||
+                                FactorInputField.getText().toString().length() > 4 ||
+                                EnteredResult.getText().toString().length() > 4)) {
+                    if (indexOfSelectedItem == -1) {
+                        Toast.makeText(this, "Не выбран вид операции", Toast.LENGTH_SHORT).show();
+                        saveLayout = true;
+                    }
 
-                    getAnswerIsSelected = true;
+                    int countEmpty = 0;
 
-                    ChooseAction.setVisibility(View.GONE);
-                    Space1.setVisibility(View.GONE);
-                    View1.setVisibility(View.GONE);
-                    LayoutListView.setVisibility(View.GONE);
-                    View2.setVisibility(View.GONE);
-                    Space2.setVisibility(View.GONE);
-                    EditText1.setVisibility(View.GONE);
-                    EditText2.setVisibility(View.GONE);
-                    EditText3.setVisibility(View.GONE);
-                    EditText4.setVisibility(View.GONE);
-                    Space3.setVisibility(View.GONE);
-                    CountOfHeaps1.setVisibility(View.GONE);
-                    LayoutCountOfKoef.setVisibility(View.GONE);
-                    LayoutMove.setVisibility(View.GONE);
-                    Pvos.setVisibility(View.GONE);
-                    LayoutBranch3Koef.setVisibility(View.GONE);
-                    LayoutWhichMove.setVisibility(View.GONE);
-                    ResultButton.setVisibility(View.GONE);
-                    AnswerLayout.setVisibility(View.VISIBLE);
-                    BeginFromStartButton.setVisibility(View.VISIBLE);
+                    if (StoneInputField1.getText().toString().isEmpty())
+                        countEmpty++;
 
-                    Answer.setText("Ошибка: неверный ввод данных");
-                }
-                else {
+                    if (StoneInputField2.getText().toString().isEmpty())
+                        countEmpty++;
+
+                    if (FactorInputField.getText().toString().isEmpty() && (flFactor3Button || indexOfSelectedItem == 3 || indexOfSelectedItem == 4))
+                        countEmpty++;
+
+                    if (EnteredResult.getText().toString().isEmpty())
+                        countEmpty++;
+
+                    if (countEmpty > 1) {
+                        Toast.makeText(this, "Не введены коэффициенты", Toast.LENGTH_SHORT).show();
+                        saveLayout = true;
+                    } else {
+                        if (flFactor3Button && (StoneInputField1.getText().toString().isEmpty() ||
+                                StoneInputField2.getText().toString().isEmpty() ||
+                                FactorInputField.getText().toString().isEmpty() ||
+                                EnteredResult.getText().toString().isEmpty())) {
+
+                            if (StoneInputField1.getText().toString().isEmpty()) {
+                                Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                            }
+
+                            if (StoneInputField2.getText().toString().isEmpty()) {
+                                Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                            }
+
+                            if (FactorInputField.getText().toString().isEmpty()) {
+                                Toast.makeText(this, "Не указан коэффициент умножения", Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                            }
+
+                            if (EnteredResult.getText().toString().isEmpty()) {
+                                Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                            }
+                        }
+
+                        switch (indexOfSelectedItem) {
+                            case 0:
+                                if (StoneInputField1.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (StoneInputField2.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указан коэффициент умножения", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (EnteredResult.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                break;
+
+                            case 1:
+                                if (StoneInputField1.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (StoneInputField2.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (EnteredResult.getText().toString().isEmpty()) {
+
+                                    Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+                                break;
+
+                            case 2:
+                                if (StoneInputField1.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (StoneInputField2.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указан коэффициент возведения", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (EnteredResult.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+                                break;
+
+                            case 3:
+                                if (StoneInputField1.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (StoneInputField2.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указан коэффициент умножения", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (FactorInputField.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано количество вычитаемых камней", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (EnteredResult.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                break;
+
+                            case 4:
+                                if (StoneInputField1.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (StoneInputField2.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указан коэффициент умножения", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (FactorInputField.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (EnteredResult.getText().toString().isEmpty()) {
+                                    Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                break;
+                        }
+                    }
+
+                    if (flFactor3Button && !flYesButton && !flNoButton) {
+                        Toast.makeText(this, "Не выбрано условие повторения хода", Toast.LENGTH_SHORT).show();
+                        saveLayout = true;
+                    }
+
+                    if (flNoButton && !flMyLastOne && !flAnotherPlayer) {
+                        Toast.makeText(this, "Не выбрано чей ход нельзя повторять", Toast.LENGTH_SHORT).show();
+                        saveLayout = true;
+                    }
+
+                    int countLength = 0;
+
+                    if (StoneInputField1.getText().toString().length() > 4)
+                        countLength++;
+
+                    if (StoneInputField2.getText().toString().length() > 4)
+                        countLength++;
+
+                    if (FactorInputField.getText().toString().length() > 4)
+                        countLength++;
+
+                    if (EnteredResult.getText().toString().length() > 4)
+                        countLength++;
+
+                    if (countLength > 1) {
+                        Toast.makeText(this, "Коэффициенты превышают допустимую длину", Toast.LENGTH_SHORT).show();
+                        saveLayout = true;
+                    } else {
+                        if (StoneInputField1.getText().toString().length() > 4 ||
+                                StoneInputField2.getText().toString().length() > 4 ||
+                                FactorInputField.getText().toString().length() > 4 ||
+                                EnteredResult.getText().toString().length() > 4) {
+
+                            if (StoneInputField1.getText().toString().length() > 4) {
+                                Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                            }
+
+                            if (StoneInputField2.getText().toString().length() > 4) {
+                                Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                            }
+
+                            if (FactorInputField.getText().toString().length() > 4) {
+                                Toast.makeText(this, "Коэффициент умножения превышает допустимое значение", Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                            }
+
+                            if (EnteredResult.getText().toString().length() > 4) {
+                                Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                            }
+                        }
+
+                        switch (indexOfSelectedItem) {
+                            case 0:
+                                if (StoneInputField1.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (StoneInputField2.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Коэффициент умножения превышает допустимое значение", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (EnteredResult.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                break;
+
+                            case 1:
+                                if (StoneInputField1.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (StoneInputField2.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (EnteredResult.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+                                break;
+
+                            case 2:
+                                if (StoneInputField1.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (StoneInputField2.getText().toString().length() > 1) {
+                                    Toast.makeText(this, "Коэффициент возведения превышает допустимое значение", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (EnteredResult.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+                                break;
+
+                            case 3:
+                                if (StoneInputField1.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (StoneInputField2.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Коэффициент умножения превышает допустимое значение", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (FactorInputField.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Количество вычитаемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (EnteredResult.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                break;
+
+                            case 4:
+                                if (StoneInputField1.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (StoneInputField2.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Коэффициент умножения превышает допустимое значение", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (FactorInputField.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                if (EnteredResult.getText().toString().length() > 4) {
+                                    Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
+                                    saveLayout = true;
+                                }
+
+                                break;
+                        }
+                    }
+                } else {
+                    final String errorText = "Ошибка: неверно введены данные";
                     if (flAnyMoveButton) {
-                        if (flKoef2Button) {
-                            getAnswerIsSelected = true;
-
-                            ChooseAction.setVisibility(View.GONE);
-                            Space1.setVisibility(View.GONE);
-                            View1.setVisibility(View.GONE);
-                            LayoutListView.setVisibility(View.GONE);
-                            View2.setVisibility(View.GONE);
-                            Space2.setVisibility(View.GONE);
-                            EditText1.setVisibility(View.GONE);
-                            EditText2.setVisibility(View.GONE);
-                            EditText3.setVisibility(View.GONE);
-                            EditText4.setVisibility(View.GONE);
-                            Space3.setVisibility(View.GONE);
-                            CountOfHeaps1.setVisibility(View.GONE);
-                            LayoutCountOfKoef.setVisibility(View.GONE);
-                            LayoutBranch3Koef.setVisibility(View.GONE);
-                            LayoutWhichMove.setVisibility(View.GONE);
-                            LayoutMove.setVisibility(View.GONE);
-                            ResultButton.setVisibility(View.GONE);
-                            AnswerLayout.setVisibility(View.VISIBLE);
-                            BeginFromStartButton.setVisibility(View.VISIBLE);
-
-                            switch (index) {
-                                case -1:
-                                    Answer.setText("Ошибка: неверный ввод данных");
-                                    ERROR = true;
-                                    break;
-
+                        if (flFactor2Button) {
+                            switch (indexOfSelectedItem) {
                                 case 0:
                                     OneHeapTwoAnd_PL_MU_19 obj_PL_MU = new OneHeapTwoAnd_PL_MU_19(
-                                            Integer.parseInt(EditText1.getText().toString()),
-                                            Integer.parseInt(EditText2.getText().toString()),
-                                            Integer.parseInt(EditText4.getText().toString()));
+                                            Integer.parseInt(StoneInputField1.getText().toString()),
+                                            Integer.parseInt(StoneInputField2.getText().toString()),
+                                            Integer.parseInt(EnteredResult.getText().toString()));
 
-                                    if (obj_PL_MU.getResult() == 0) {
-                                        Answer.setText("Ошибка: неверный ввод данных");
+                                    if (obj_PL_MU.getResult() == 0)
                                         ERROR = true;
-                                    }
                                     else
-                                        Answer.setText(Integer.toString(obj_PL_MU.getResult()));
-
+                                        Answer.setText(String.format(new Locale("ru"), "%d", obj_PL_MU.getResult()));
                                     break;
 
                                 case 1:
                                     OneHeapTwoAnd_PL_PL_19 obj_PL_PL = new OneHeapTwoAnd_PL_PL_19(
-                                            Integer.parseInt(EditText1.getText().toString()),
-                                            Integer.parseInt(EditText2.getText().toString()),
-                                            Integer.parseInt(EditText4.getText().toString()));
+                                            Integer.parseInt(StoneInputField1.getText().toString()),
+                                            Integer.parseInt(StoneInputField2.getText().toString()),
+                                            Integer.parseInt(EnteredResult.getText().toString()));
 
-                                    if (obj_PL_PL.getResult() == 0) {
-                                        Answer.setText("Ошибка: неверный ввод данных");
+                                    if (obj_PL_PL.getResult() == 0)
                                         ERROR = true;
-                                    }
                                     else
-                                        Answer.setText(Integer.toString(obj_PL_PL.getResult()));
-
+                                        Answer.setText(String.format(new Locale("ru"), "%d", obj_PL_PL.getResult()));
                                     break;
 
                                 case 2:
                                     OneHeapTwoAnd_PL_MU_MU_19 obj_PL_MU_MU = new OneHeapTwoAnd_PL_MU_MU_19(
-                                            Integer.parseInt(EditText1.getText().toString()),
-                                            Integer.parseInt(EditText2.getText().toString()),
-                                            Integer.parseInt(EditText4.getText().toString()));
+                                            Integer.parseInt(StoneInputField1.getText().toString()),
+                                            Integer.parseInt(StoneInputField2.getText().toString()),
+                                            Integer.parseInt(EnteredResult.getText().toString()));
 
-                                    if (obj_PL_MU_MU.getResult() == 0) {
-                                        Answer.setText("Ошибка: неверный ввод данных");
+                                    if (obj_PL_MU_MU.getResult() == 0)
                                         ERROR = true;
-                                    }
                                     else
-                                        Answer.setText(Integer.toString(obj_PL_MU_MU.getResult()));
-
+                                        Answer.setText(String.format(new Locale("ru"), "%d", obj_PL_MU_MU.getResult()));
                                     break;
 
                                 case 3:
                                     OneHeapTwoAnd_PL_MU_MN_19 obj_PL_MU_MN = new OneHeapTwoAnd_PL_MU_MN_19(
-                                            Integer.parseInt(EditText1.getText().toString()),
-                                            Integer.parseInt(EditText2.getText().toString()),
-                                            Integer.parseInt(EditText3.getText().toString()),
-                                            Integer.parseInt(EditText4.getText().toString()));
+                                            Integer.parseInt(StoneInputField1.getText().toString()),
+                                            Integer.parseInt(StoneInputField2.getText().toString()),
+                                            Integer.parseInt(FactorInputField.getText().toString()),
+                                            Integer.parseInt(EnteredResult.getText().toString()));
 
-                                    if (obj_PL_MU_MN.getResult() == 0) {
-                                        Answer.setText("Ошибка: неверный ввод данных");
+                                    if (obj_PL_MU_MN.getResult() == 0)
                                         ERROR = true;
-                                    }
                                     else
-                                        Answer.setText(Integer.toString(obj_PL_MU_MN.getResult()));
-
+                                        Answer.setText(String.format(new Locale("ru"), "%d", obj_PL_MU_MN.getResult()));
                                     break;
 
                                 case 4:
                                     OneHeapTwoAnd_PL_MU_PL_19 obj_PL_MU_PL = new OneHeapTwoAnd_PL_MU_PL_19(
-                                            Integer.parseInt(EditText1.getText().toString()),
-                                            Integer.parseInt(EditText2.getText().toString()),
-                                            Integer.parseInt(EditText3.getText().toString()),
-                                            Integer.parseInt(EditText4.getText().toString()));
+                                            Integer.parseInt(StoneInputField1.getText().toString()),
+                                            Integer.parseInt(StoneInputField2.getText().toString()),
+                                            Integer.parseInt(FactorInputField.getText().toString()),
+                                            Integer.parseInt(EnteredResult.getText().toString()));
 
-                                    if (obj_PL_MU_PL.getResult() == 0) {
-                                        Answer.setText("Ошибка: неверный ввод данных");
+                                    if (obj_PL_MU_PL.getResult() == 0)
                                         ERROR = true;
-                                    }
                                     else
-                                        Answer.setText(Integer.toString(obj_PL_MU_PL.getResult()));
-
+                                        Answer.setText(String.format(new Locale("ru"), "%d", obj_PL_MU_PL.getResult()));
                                     break;
                             }
 
-                            if (ERROR)
-                                Pvos.setVisibility(View.GONE);
+                            if (ERROR) {
+                                Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                                ERROR = false;
+                            } else {
+                                getAnswerIsSelected = true;
+
+                                ChooseAction.setVisibility(View.GONE);
+                                Rectangle1.setVisibility(View.GONE);
+                                ListView.setVisibility(View.GONE);
+                                Rectangle2.setVisibility(View.GONE);
+                                StoneInputField1.setVisibility(View.GONE);
+                                StoneInputField2.setVisibility(View.GONE);
+                                FactorInputField.setVisibility(View.GONE);
+                                EnteredResult.setVisibility(View.GONE);
+                                CountOfHeaps1.setVisibility(View.GONE);
+                                LayoutCountOfFactors.setVisibility(View.GONE);
+                                LayoutBranch3Factors.setVisibility(View.GONE);
+                                LayoutWhichMove.setVisibility(View.GONE);
+                                LayoutMove.setVisibility(View.GONE);
+                                ResultButton.setVisibility(View.GONE);
+                                AnswerLayout.setVisibility(View.VISIBLE);
+                                BeginFromStartButton.setVisibility(View.VISIBLE);
+                            }
                         }
-                        if (flKoef3Button) {
-                            getAnswerIsSelected = true;
-
-                            Space2.setVisibility(View.GONE);
-                            Space3.setVisibility(View.GONE);
-                            ResultButton.setVisibility(View.GONE);
-                            EditText1.setVisibility(View.GONE);
-                            EditText2.setVisibility(View.GONE);
-                            EditText3.setVisibility(View.GONE);
-                            EditText4.setVisibility(View.GONE);
-                            CountOfHeaps1.setVisibility(View.GONE);
-                            LayoutCountOfKoef.setVisibility(View.GONE);
-                            LayoutMove.setVisibility(View.GONE);
-                            LayoutWhichMove.setVisibility(View.GONE);
-                            LayoutBranch3Koef.setVisibility(View.GONE);
-                            AnswerLayout.setVisibility(View.VISIBLE);
-                            BeginFromStartButton.setVisibility(View.VISIBLE);
-
-                            if (flYesButton){
+                        if (flFactor3Button) {
+                            if (flYesButton) {
                                 OneHeapThreeAnd19 obj = new OneHeapThreeAnd19(
-                                        Integer.parseInt(EditText1.getText().toString()),
-                                        Integer.parseInt(EditText2.getText().toString()),
-                                        Integer.parseInt(EditText3.getText().toString()),
-                                        Integer.parseInt(EditText4.getText().toString()));
+                                        Integer.parseInt(StoneInputField1.getText().toString()),
+                                        Integer.parseInt(StoneInputField2.getText().toString()),
+                                        Integer.parseInt(FactorInputField.getText().toString()),
+                                        Integer.parseInt(EnteredResult.getText().toString()));
 
-                                if (obj.getResult() == 0) {
-                                    Answer.setText("Ошибка: неверный ввод данных");
+                                if (obj.getResult() == 0)
                                     ERROR = true;
-                                }
                                 else
-                                    Answer.setText(Integer.toString(obj.getResult()));
+                                    Answer.setText(String.format(new Locale("ru"), "%d", obj.getResult()));
                             }
 
-                            if (flNoButton && flMyLastOne){
+                            if (flNoButton && flMyLastOne) {
                                 OneHeapThreeNoSameMe19 objNoSameMy = new OneHeapThreeNoSameMe19(
-                                        Integer.parseInt(EditText1.getText().toString()),
-                                        Integer.parseInt(EditText2.getText().toString()),
-                                        Integer.parseInt(EditText3.getText().toString()),
-                                        Integer.parseInt(EditText4.getText().toString()));
+                                        Integer.parseInt(StoneInputField1.getText().toString()),
+                                        Integer.parseInt(StoneInputField2.getText().toString()),
+                                        Integer.parseInt(FactorInputField.getText().toString()),
+                                        Integer.parseInt(EnteredResult.getText().toString()));
 
                                 StringBuilder answer = new StringBuilder();
-                                List<Integer> list = (List<Integer>) objNoSameMy.getResult();
+                                List<Integer> list = objNoSameMy.getResult();
 
-                                if (list.isEmpty()) {
-                                    Answer.setText("Ошибка: неверный ввод данных");
+                                if (list.isEmpty())
                                     ERROR = true;
-                                }
                                 else {
-                                    for(int elem: list) answer.append(elem).append("\n\n");
+                                    for (int elem : list) answer.append(elem).append("\n\n");
                                     Answer.setText(answer);
                                 }
                             }
 
-                            if (flNoButton && flAnotherPlayer){
+                            if (flNoButton && flAnotherPlayer) {
                                 OneHeapThreeNoSame2Player19 objNoSameSecond = new OneHeapThreeNoSame2Player19(
-                                        Integer.parseInt(EditText1.getText().toString()),
-                                        Integer.parseInt(EditText2.getText().toString()),
-                                        Integer.parseInt(EditText3.getText().toString()),
-                                        Integer.parseInt(EditText4.getText().toString()));
+                                        Integer.parseInt(StoneInputField1.getText().toString()),
+                                        Integer.parseInt(StoneInputField2.getText().toString()),
+                                        Integer.parseInt(FactorInputField.getText().toString()),
+                                        Integer.parseInt(EnteredResult.getText().toString()));
 
                                 StringBuilder answer = new StringBuilder();
-                                List<Integer> list = (List<Integer>) objNoSameSecond.getResult();
+                                List<Integer> list = objNoSameSecond.getResult();
 
-                                if (list.isEmpty()) {
-                                    Answer.setText("Ошибка: неверный ввод данных");
+                                if (list.isEmpty())
                                     ERROR = true;
-                                }
                                 else {
-                                    for(int elem: list) answer.append(elem).append("\n\n");
+                                    for (int elem : list) answer.append(elem).append("\n\n");
                                     Answer.setText(answer);
                                 }
                             }
-                            if (ERROR)
-                                Pvos.setVisibility(View.GONE);
+
+                            if (ERROR) {
+                                Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                                ERROR = false;
+                            } else {
+                                getAnswerIsSelected = true;
+
+                                ResultButton.setVisibility(View.GONE);
+                                StoneInputField1.setVisibility(View.GONE);
+                                StoneInputField2.setVisibility(View.GONE);
+                                FactorInputField.setVisibility(View.GONE);
+                                EnteredResult.setVisibility(View.GONE);
+                                CountOfHeaps1.setVisibility(View.GONE);
+                                LayoutCountOfFactors.setVisibility(View.GONE);
+                                LayoutMove.setVisibility(View.GONE);
+                                LayoutWhichMove.setVisibility(View.GONE);
+                                LayoutBranch3Factors.setVisibility(View.GONE);
+                                AnswerLayout.setVisibility(View.VISIBLE);
+                                BeginFromStartButton.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                     if (flUnluckyMoveButton) {
-                        if (flKoef2Button) {
-                            getAnswerIsSelected = true;
-
-                            ChooseAction.setVisibility(View.GONE);
-                            Space1.setVisibility(View.GONE);
-                            View1.setVisibility(View.GONE);
-                            LayoutListView.setVisibility(View.GONE);
-                            View2.setVisibility(View.GONE);
-                            Space2.setVisibility(View.GONE);
-                            EditText1.setVisibility(View.GONE);
-                            EditText2.setVisibility(View.GONE);
-                            EditText3.setVisibility(View.GONE);
-                            EditText4.setVisibility(View.GONE);
-                            Space3.setVisibility(View.GONE);
-                            CountOfHeaps1.setVisibility(View.GONE);
-                            LayoutCountOfKoef.setVisibility(View.GONE);
-                            LayoutBranch3Koef.setVisibility(View.GONE);
-                            LayoutWhichMove.setVisibility(View.GONE);
-                            LayoutMove.setVisibility(View.GONE);
-                            ResultButton.setVisibility(View.GONE);
-                            AnswerLayout.setVisibility(View.VISIBLE);
-                            BeginFromStartButton.setVisibility(View.VISIBLE);
-
-                            switch (index) {
-                                case -1:
-                                    Answer.setText("Ошибка: неверный ввод данных");
-                                    ERROR = true;
-                                    break;
-
+                        if (flFactor2Button) {
+                            switch (indexOfSelectedItem) {
                                 case 0:
                                     OneHeapTwoOr_PL_MU_19 obj_PL_MU = new OneHeapTwoOr_PL_MU_19(
-                                            Integer.parseInt(EditText1.getText().toString()),
-                                            Integer.parseInt(EditText2.getText().toString()),
-                                            Integer.parseInt(EditText4.getText().toString()));
+                                            Integer.parseInt(StoneInputField1.getText().toString()),
+                                            Integer.parseInt(StoneInputField2.getText().toString()),
+                                            Integer.parseInt(EnteredResult.getText().toString()));
 
-                                    if (obj_PL_MU.getResult() == 0) {
-                                        Answer.setText("Ошибка: неверный ввод данных");
+                                    if (obj_PL_MU.getResult() == 0)
                                         ERROR = true;
-                                    }
                                     else
-                                        Answer.setText(Integer.toString(obj_PL_MU.getResult()));
+                                        Answer.setText(String.format(new Locale("ru"), "%d", obj_PL_MU.getResult()));
 
                                     break;
 
                                 case 1:
                                     OneHeapTwoOr_PL_PL_19 obj_PL_PL = new OneHeapTwoOr_PL_PL_19(
-                                            Integer.parseInt(EditText1.getText().toString()),
-                                            Integer.parseInt(EditText2.getText().toString()),
-                                            Integer.parseInt(EditText4.getText().toString()));
+                                            Integer.parseInt(StoneInputField1.getText().toString()),
+                                            Integer.parseInt(StoneInputField2.getText().toString()),
+                                            Integer.parseInt(EnteredResult.getText().toString()));
 
-                                    if (obj_PL_PL.getResult() == 0) {
-                                        Answer.setText("Ошибка: неверный ввод данных");
+                                    if (obj_PL_PL.getResult() == 0)
                                         ERROR = true;
-                                    }
                                     else
-                                        Answer.setText(Integer.toString(obj_PL_PL.getResult()));
+                                        Answer.setText(String.format(new Locale("ru"), "%d", obj_PL_PL.getResult()));
 
                                     break;
 
                                 case 2:
                                     OneHeapTwoOr_PL_MU_MU_19 obj_PL_MU_MU = new OneHeapTwoOr_PL_MU_MU_19(
-                                            Integer.parseInt(EditText1.getText().toString()),
-                                            Integer.parseInt(EditText2.getText().toString()),
-                                            Integer.parseInt(EditText4.getText().toString()));
+                                            Integer.parseInt(StoneInputField1.getText().toString()),
+                                            Integer.parseInt(StoneInputField2.getText().toString()),
+                                            Integer.parseInt(EnteredResult.getText().toString()));
 
-                                    if (obj_PL_MU_MU.getResult() == 0) {
-                                        Answer.setText("Ошибка: неверный ввод данных");
+                                    if (obj_PL_MU_MU.getResult() == 0)
                                         ERROR = true;
-                                    }
                                     else
-                                        Answer.setText(Integer.toString(obj_PL_MU_MU.getResult()));
+                                        Answer.setText(String.format(new Locale("ru"), "%d", obj_PL_MU_MU.getResult()));
 
                                     break;
 
                                 case 3:
                                     OneHeapTwoOr_PL_MU_MN_19 obj_PL_MU_MN = new OneHeapTwoOr_PL_MU_MN_19(
-                                            Integer.parseInt(EditText1.getText().toString()),
-                                            Integer.parseInt(EditText2.getText().toString()),
-                                            Integer.parseInt(EditText3.getText().toString()),
-                                            Integer.parseInt(EditText4.getText().toString()));
+                                            Integer.parseInt(StoneInputField1.getText().toString()),
+                                            Integer.parseInt(StoneInputField2.getText().toString()),
+                                            Integer.parseInt(FactorInputField.getText().toString()),
+                                            Integer.parseInt(EnteredResult.getText().toString()));
 
-                                    if (obj_PL_MU_MN.getResult() == 0) {
-                                        Answer.setText("Ошибка: неверный ввод данных");
+                                    if (obj_PL_MU_MN.getResult() == 0)
                                         ERROR = true;
-                                    }
                                     else
-                                        Answer.setText(Integer.toString(obj_PL_MU_MN.getResult()));
+                                        Answer.setText(String.format(new Locale("ru"), "%d", obj_PL_MU_MN.getResult()));
 
                                     break;
 
                                 case 4:
                                     OneHeapTwoOr_PL_MU_PL_19 obj_PL_MU_PL = new OneHeapTwoOr_PL_MU_PL_19(
-                                            Integer.parseInt(EditText1.getText().toString()),
-                                            Integer.parseInt(EditText2.getText().toString()),
-                                            Integer.parseInt(EditText3.getText().toString()),
-                                            Integer.parseInt(EditText4.getText().toString()));
+                                            Integer.parseInt(StoneInputField1.getText().toString()),
+                                            Integer.parseInt(StoneInputField2.getText().toString()),
+                                            Integer.parseInt(FactorInputField.getText().toString()),
+                                            Integer.parseInt(EnteredResult.getText().toString()));
 
-                                    if (obj_PL_MU_PL.getResult() == 0) {
-                                        Answer.setText("Ошибка: неверный ввод данных");
+                                    if (obj_PL_MU_PL.getResult() == 0)
                                         ERROR = true;
-                                    }
                                     else
-                                        Answer.setText(Integer.toString(obj_PL_MU_PL.getResult()));
+                                        Answer.setText(String.format(new Locale("ru"), "%d", obj_PL_MU_PL.getResult()));
 
                                     break;
                             }
 
-                            if (ERROR)
-                                Pvos.setVisibility(View.GONE);
-                        }
-                        if (flKoef3Button) {
-                            getAnswerIsSelected = true;
+                            if (ERROR) {
+                                Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                                ERROR = false;
+                            } else {
+                                getAnswerIsSelected = true;
 
-                            Space2.setVisibility(View.GONE);
-                            Space3.setVisibility(View.GONE);
-                            ResultButton.setVisibility(View.GONE);
-                            EditText1.setVisibility(View.GONE);
-                            EditText2.setVisibility(View.GONE);
-                            EditText3.setVisibility(View.GONE);
-                            EditText4.setVisibility(View.GONE);
-                            CountOfHeaps1.setVisibility(View.GONE);
-                            LayoutCountOfKoef.setVisibility(View.GONE);
-                            LayoutBranch3Koef.setVisibility(View.GONE);
-                            LayoutWhichMove.setVisibility(View.GONE);
-                            LayoutMove.setVisibility(View.GONE);
-                            AnswerLayout.setVisibility(View.VISIBLE);
-                            BeginFromStartButton.setVisibility(View.VISIBLE);
-
-                            OneHeapThreeOr19 obj = new OneHeapThreeOr19(
-                                    Integer.parseInt(EditText1.getText().toString()),
-                                    Integer.parseInt(EditText2.getText().toString()),
-                                    Integer.parseInt(EditText3.getText().toString()),
-                                    Integer.parseInt(EditText4.getText().toString()));
-
-                            if (obj.getResult() == 0) {
-                                Answer.setText("Ошибка: неверный ввод данных");
-                                ERROR = true;
+                                ChooseAction.setVisibility(View.GONE);
+                                Rectangle1.setVisibility(View.GONE);
+                                ListView.setVisibility(View.GONE);
+                                Rectangle2.setVisibility(View.GONE);
+                                StoneInputField1.setVisibility(View.GONE);
+                                StoneInputField2.setVisibility(View.GONE);
+                                FactorInputField.setVisibility(View.GONE);
+                                EnteredResult.setVisibility(View.GONE);
+                                CountOfHeaps1.setVisibility(View.GONE);
+                                LayoutCountOfFactors.setVisibility(View.GONE);
+                                LayoutBranch3Factors.setVisibility(View.GONE);
+                                LayoutWhichMove.setVisibility(View.GONE);
+                                LayoutMove.setVisibility(View.GONE);
+                                ResultButton.setVisibility(View.GONE);
+                                AnswerLayout.setVisibility(View.VISIBLE);
+                                BeginFromStartButton.setVisibility(View.VISIBLE);
                             }
-                            else
-                                Answer.setText(Integer.toString(obj.getResult()));
+                        }
+                        if (flFactor3Button) {
+                            OneHeapThreeOr19 obj = new OneHeapThreeOr19(
+                                    Integer.parseInt(StoneInputField1.getText().toString()),
+                                    Integer.parseInt(StoneInputField2.getText().toString()),
+                                    Integer.parseInt(FactorInputField.getText().toString()),
+                                    Integer.parseInt(EnteredResult.getText().toString()));
 
-                            if (ERROR)
-                                Pvos.setVisibility(View.GONE);
+                            if (obj.getResult() == 0)
+                                ERROR = true;
+                            else
+                                Answer.setText(String.format(new Locale("ru"), "%d", obj.getResult()));
+
+                            if (ERROR) {
+                                Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+                                saveLayout = true;
+                                ERROR = false;
+                            } else {
+                                getAnswerIsSelected = true;
+
+                                ResultButton.setVisibility(View.GONE);
+                                StoneInputField1.setVisibility(View.GONE);
+                                StoneInputField2.setVisibility(View.GONE);
+                                FactorInputField.setVisibility(View.GONE);
+                                EnteredResult.setVisibility(View.GONE);
+                                CountOfHeaps1.setVisibility(View.GONE);
+                                LayoutCountOfFactors.setVisibility(View.GONE);
+                                LayoutBranch3Factors.setVisibility(View.GONE);
+                                LayoutWhichMove.setVisibility(View.GONE);
+                                LayoutMove.setVisibility(View.GONE);
+                                AnswerLayout.setVisibility(View.VISIBLE);
+                                BeginFromStartButton.setVisibility(View.VISIBLE);
+                            }
                         }
                     }
                 }
@@ -667,73 +920,143 @@ public class Task19Activity extends AppCompatActivity implements View.OnClickLis
                 break;
         }
 
-        if (flKoef2Button && !getAnswerIsSelected) {
+        if (flFactor2Button && !getAnswerIsSelected) {
             ChooseAction.setVisibility(View.VISIBLE);
-            Space1.setVisibility(View.VISIBLE);
-            View1.setVisibility(View.VISIBLE);
-            LayoutListView.setVisibility(View.VISIBLE);
-            View2.setVisibility(View.VISIBLE);
-            Space2.setVisibility(View.VISIBLE);
-            LayoutEdT1.setVisibility(View.VISIBLE);
-            LayoutEdT2.setVisibility(View.VISIBLE);
-            LayoutEdT3.setVisibility(View.GONE);
-            LayoutEdT4.setVisibility(View.VISIBLE);
-            Space3.setVisibility(View.VISIBLE);
+            Rectangle1.setVisibility(View.VISIBLE);
+            ListView.setVisibility(View.VISIBLE);
+            Rectangle2.setVisibility(View.VISIBLE);
+            StoneInputField1.setVisibility(View.VISIBLE);
+            StoneInputField2.setVisibility(View.VISIBLE);
+            FactorInputField.setVisibility(View.GONE);
+            EnteredResult.setVisibility(View.VISIBLE);
 
-            EditText1.getText().clear();
-            EditText2.getText().clear();
-            EditText3.getText().clear();
-            EditText4.getText().clear();
+            if (count2factors == 1 && count3factors > 0) {
+                StoneInputField1.getText().clear();
+                StoneInputField2.getText().clear();
+                FactorInputField.getText().clear();
+                EnteredResult.getText().clear();
+
+                count3factors = 0;
+            }
         }
 
-        if (flKoef3Button && !getAnswerIsSelected) {
+        if (flFactor3Button && !getAnswerIsSelected) {
             ChooseAction.setVisibility(View.GONE);
-            Space1.setVisibility(View.GONE);
-            View1.setVisibility(View.GONE);
-            LayoutListView.setVisibility(View.GONE);
-            View2.setVisibility(View.GONE);
-            Space2.setVisibility(View.GONE);
-            LayoutEdT1.setVisibility(View.VISIBLE);
-            LayoutEdT2.setVisibility(View.VISIBLE);
-            LayoutEdT3.setVisibility(View.VISIBLE);
-            LayoutEdT4.setVisibility(View.VISIBLE);
-            Space3.setVisibility(View.VISIBLE);
+            Rectangle1.setVisibility(View.GONE);
+            ListView.setVisibility(View.GONE);
+            Rectangle2.setVisibility(View.GONE);
+            StoneInputField1.setVisibility(View.VISIBLE);
+            StoneInputField2.setVisibility(View.VISIBLE);
+            FactorInputField.setVisibility(View.VISIBLE);
+            EnteredResult.setVisibility(View.VISIBLE);
 
-            EditText1.getText().clear();
-            EditText2.getText().clear();
-            EditText3.getText().clear();
-            EditText4.getText().clear();
+            if (count3factors == 1 && count2factors > 0) {
+                StoneInputField1.setHint("Введите количество добавляемых камней");
+                StoneInputField2.setHint("Введите количество добавляемых камней");
+                FactorInputField.setHint("Введите коэффициент умножения");
 
-            if (index != -1) {
-                ListView.getChildAt(index).setBackgroundColor(Color.parseColor("#2a2a2a"));
-                index = -1;
+
+                StoneInputField1.getText().clear();
+                StoneInputField2.getText().clear();
+                FactorInputField.getText().clear();
+                EnteredResult.getText().clear();
+
+                count2factors = 0;
+            }
+
+            if (indexOfSelectedItem != -1) {
+                ListView.getChildAt(indexOfSelectedItem).setBackgroundColor(Color.parseColor("#2a2a2a"));
+                indexOfSelectedItem = -1;
                 somethingIsChecked = false;
             }
         }
 
-        ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (somethingIsChecked) {
-                    if (i == 3 || i == 4)
-                        LayoutEdT3.setVisibility(View.VISIBLE);
-                    else
-                        LayoutEdT3.setVisibility(View.GONE);
-                    ListView.getChildAt(index).setBackgroundColor(Color.parseColor("#2a2a2a"));
-                    index = i;
-                    view.setBackgroundColor(Color.parseColor("#323232"));
-                }
-                else {
-                    if (i == 3 || i == 4)
-                        LayoutEdT3.setVisibility(View.VISIBLE);
-                    else
-                        LayoutEdT3.setVisibility(View.GONE);
-                    index = i;
-                    view.setBackgroundColor(Color.parseColor("#323232"));
-                    somethingIsChecked = true;
-                }
+        if (saveLayout) {
+            StoneInputField1.setText(saveStoneInputField1);
+            StoneInputField2.setText(saveStoneInputField2);
+            FactorInputField.setText(saveFactorInputField);
+            EnteredResult.setText(saveEnteredResult);
+
+            StoneInputField1.setSelection(StoneInputField1.getText().toString().length());
+            StoneInputField2.setSelection(StoneInputField2.getText().toString().length());
+            FactorInputField.setSelection(FactorInputField.getText().toString().length());
+            EnteredResult.setSelection(EnteredResult.getText().toString().length());
+
+            ListView.setSelection(saveIndexList);
+
+            switch (saveIndexList) {
+                case 0:
+                    StoneInputField2.setHint("Введите коэффициент умножения");
+                    FactorInputField.setVisibility(View.GONE);
+                    break;
+
+                case 1:
+                    StoneInputField2.setHint("Введите количество добавляемых камней");
+                    FactorInputField.setVisibility(View.GONE);
+                    break;
+
+                case 2:
+                    StoneInputField2.setHint("Введите коэффициент возведения");
+                    FactorInputField.setVisibility(View.GONE);
+                    break;
+
+                case 3:
+                    StoneInputField2.setHint("Введите коэффициент умножения");
+                    FactorInputField.setHint("Введите количество вычитаемых камней");
+                    FactorInputField.setVisibility(View.VISIBLE);
+                    break;
+
+                case 4:
+                    StoneInputField2.setHint("Введите коэффициент умножения");
+                    FactorInputField.setHint("Введите количество добавляемых камней");
+                    FactorInputField.setVisibility(View.VISIBLE);
+                    break;
+            }
+            saveLayout = false;
+        }
+
+        ListView.setOnItemClickListener((adapterView, view1, i, l) -> {
+            if (somethingIsChecked) {
+                if (i == 3 || i == 4)
+                    FactorInputField.setVisibility(View.VISIBLE);
+                else
+                    FactorInputField.setVisibility(View.GONE);
+                ListView.getChildAt(indexOfSelectedItem).setBackgroundColor(Color.parseColor("#2a2a2a"));
+                indexOfSelectedItem = i;
+                view1.setBackgroundColor(Color.parseColor("#323232"));
+            } else {
+                if (i == 3 || i == 4)
+                    FactorInputField.setVisibility(View.VISIBLE);
+                else
+                    FactorInputField.setVisibility(View.GONE);
+                indexOfSelectedItem = i;
+                view1.setBackgroundColor(Color.parseColor("#323232"));
+                somethingIsChecked = true;
+            }
+
+            switch (i) {
+                case 0:
+                    StoneInputField2.setHint("Введите коэффициент умножения");
+                    break;
+
+                case 1:
+                    StoneInputField2.setHint("Введите количество добавляемых камней");
+                    break;
+
+                case 2:
+                    StoneInputField2.setHint("Введите коэффициент возведения");
+                    break;
+
+                case 3:
+                    StoneInputField2.setHint("Введите коэффициент умножения");
+                    FactorInputField.setHint("Введите количество вычитаемых камней");
+                    break;
+
+                case 4:
+                    StoneInputField2.setHint("Введите коэффициент умножения");
+                    FactorInputField.setHint("Введите количество добавляемых камней");
+                    break;
             }
         });
-
     }
 }
