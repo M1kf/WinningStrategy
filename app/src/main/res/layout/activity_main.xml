@@ -4,23 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@color/background"
+    android:background="@drawable/main_activity_background"
     android:orientation="vertical">
+
+    <Button
+        android:id="@+id/info"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/button_main_activity"
+        android:text="@string/info"
+        android:textColor="@color/text_of_main_activity" />
 
     <Space
         android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="0.75"/>
 
     <Button
         android:id="@+id/button19"
-        android:layout_width="match_parent"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="324dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/text"
         android:background="@drawable/button_main_activity"
-        style="?android:attr/borderlessButtonStyle"
-        android:text="@string/_19" />
+        android:text="@string/_19"
+        android:textColor="@color/text_of_main_activity" />
 
     <Space
         android:layout_height="0dp"
@@ -29,10 +41,10 @@
 
     <Button
         android:id="@+id/button20"
-        android:layout_width="match_parent"
+        android:layout_width="324dp"
         android:layout_height="wrap_content"
         android:text="@string/_20"
-        android:textColor="@color/text"
+        android:textColor="@color/text_of_main_activity"
         android:background="@drawable/button_main_activity"
         style="?android:attr/borderlessButtonStyle"
         android:layout_gravity="center"/>
@@ -44,13 +56,13 @@
 
     <Button
         android:id="@+id/button21"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/_21"
-        android:textColor="@color/text"
-        android:background="@drawable/button_main_activity"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_gravity="center" />
+        android:layout_width="324dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/button_main_activity"
+        android:text="@string/_21"
+        android:textColor="@color/text_of_main_activity" />
 
     <Space
         android:layout_height="0dp"
@@ -59,10 +71,10 @@
 
     <Button
         android:id="@+id/buttonComplex"
-        android:layout_width="match_parent"
+        android:layout_width="324dp"
         android:layout_height="wrap_content"
         android:text="@string/ComplexSolution"
-        android:textColor="@color/text"
+        android:textColor="@color/text_of_main_activity"
         android:background="@drawable/button_main_activity"
         style="?android:attr/borderlessButtonStyle"
         android:layout_gravity="center" />

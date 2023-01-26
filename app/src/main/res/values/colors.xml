@@ -7,11 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="background">#2a2a2a</color>
-    <color name="button">#313131</color>
-    <color name="text">#cdcdcd</color>
-    <color name="text2">#8F8F8F</color>
-    <color name="buttonPressed">#363636</color>
+    <color name="button_main_activity">#363839</color>
+    <color name="button_main_activity_pressed">#3a3c3d</color>
+    <color name="text_tasks_and_buttons">#cdcdcd</color>
+    <color name="text_of_hints">#8F8F8F</color>
+    <color name="text_of_main_activity">#ACAEAF</color>
     <color name="rectangle">#989696</color>
-    <color name="buttonsPressed19">#323232</color>
+    <color name="button_other_activities_pressed">#B3323232</color>
 </resources>

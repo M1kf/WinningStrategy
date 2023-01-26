@@ -61,16 +61,16 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
 
     int indexOfSelectedItem = -1;
     int saveIndexOfButton = -1;
-    private int count2factors = 0;
-    private int count3factors = 0;
+    private int count2factorsTapped = 0;
+    private int count3factorsTapped = 0;
     String saveStoneInputField1;
     String saveStoneInputField2;
     String saveFactorInputField;
     String saveEnteredResult;
     int saveIndexList;
     boolean flAnyMoveButton, flUnluckyMoveButton, flFactor2Button, flFactor3Button, flYesButton,
-            flNoButton, somethingIsChecked, getAnswerIsSelected, noWasPressed, flMyLastOne,
-            flAnotherPlayer, saveLayout, ERROR;
+            flNoButton, somethingIsChecked, getAnswerWasTapped, noWasPressed, flMyLastOne,
+            flAnotherPlayer, ERROR;
     final String[] arrayChooseAction = new String[]{"Добавить или умножить", "Добавить или добавить",
             "Добавить или возвести", "Добавить или умножить и вычесть", "Добавить или умножить и добавить"};
 
@@ -143,8 +143,8 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
         ListView.setAdapter(adapter);
 
         flAnyMoveButton = flUnluckyMoveButton = flFactor2Button = flFactor3Button = flYesButton = flNoButton
-                = somethingIsChecked = getAnswerIsSelected = flMyLastOne = flAnotherPlayer =
-                noWasPressed = saveLayout = ERROR = false;
+                = somethingIsChecked = getAnswerWasTapped = flMyLastOne = flAnotherPlayer =
+                noWasPressed = ERROR = false;
     }
 
     @Override
@@ -183,11 +183,13 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
                     flUnluckyMoveButton = true;
                 }
 
-                count2factors++;
+                count2factorsTapped++;
                 Factor2Button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                 flFactor2Button = true;
+
                 ResultButton.setVisibility(View.VISIBLE);
                 LayoutBranch3Factors.setVisibility(View.GONE);
+
                 flYesButton = flNoButton = noWasPressed = false;
                 NoButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
                 YesButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks, getBaseContext().getTheme()));
@@ -220,7 +222,7 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
                     flFactor2Button = false;
                 }
 
-                count3factors++;
+                count3factorsTapped++;
                 Factor3Button.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.button_tasks_pressed, getBaseContext().getTheme()));
                 flFactor3Button = true;
                 ResultButton.setVisibility(View.VISIBLE);
@@ -343,10 +345,9 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
                                 StoneInputField2.getText().toString().length() > 4 ||
                                 FactorInputField.getText().toString().length() > 4 ||
                                 EnteredResult.getText().toString().length() > 4)) {
-                    if (indexOfSelectedItem == -1) {
+                    saveLayout();
+                    if (indexOfSelectedItem == -1)
                         Toast.makeText(this, "Не выбран вид операции", Toast.LENGTH_SHORT).show();
-                        saveLayout = true;
-                    }
 
                     int countEmpty = 0;
 
@@ -362,148 +363,99 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
                     if (EnteredResult.getText().toString().isEmpty())
                         countEmpty++;
 
-                    if (countEmpty > 1) {
+                    if (countEmpty > 1)
                         Toast.makeText(this, "Не введены коэффициенты", Toast.LENGTH_SHORT).show();
-                        saveLayout = true;
-                    }
                     else {
                         if (flFactor3Button && (StoneInputField1.getText().toString().isEmpty() ||
                                 StoneInputField2.getText().toString().isEmpty() ||
                                 FactorInputField.getText().toString().isEmpty() ||
                                 EnteredResult.getText().toString().isEmpty())) {
 
-                            if (StoneInputField1.getText().toString().isEmpty()) {
+                            if (StoneInputField1.getText().toString().isEmpty())
                                 Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
-                            }
 
-                            if (StoneInputField2.getText().toString().isEmpty()) {
+                            if (StoneInputField2.getText().toString().isEmpty())
                                 Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
-                            }
 
-                            if (FactorInputField.getText().toString().isEmpty()) {
+                            if (FactorInputField.getText().toString().isEmpty())
                                 Toast.makeText(this, "Не указан коэффициент умножения", Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
-                            }
 
-                            if (EnteredResult.getText().toString().isEmpty()) {
+                            if (EnteredResult.getText().toString().isEmpty())
                                 Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
-                            }
                         }
 
                         switch (indexOfSelectedItem) {
                             case 0:
-                                if (StoneInputField1.getText().toString().isEmpty()) {
+                                if (StoneInputField1.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (StoneInputField2.getText().toString().isEmpty()) {
+                                if (StoneInputField2.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указан коэффициент умножения", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if  (EnteredResult.getText().toString().isEmpty()) {
+                                if  (EnteredResult.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
                                 break;
 
                             case 1:
-                                if (StoneInputField1.getText().toString().isEmpty()) {
+                                if (StoneInputField1.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (StoneInputField2.getText().toString().isEmpty()) {
+                                if (StoneInputField2.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if  (EnteredResult.getText().toString().isEmpty()) {
-
+                                if  (EnteredResult.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
                                 break;
 
                             case 2:
-                                if (StoneInputField1.getText().toString().isEmpty()) {
+                                if (StoneInputField1.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (StoneInputField2.getText().toString().isEmpty()) {
+                                if (StoneInputField2.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указан коэффициент возведения", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if  (EnteredResult.getText().toString().isEmpty()) {
+                                if  (EnteredResult.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
                                 break;
 
                             case 3:
-                                if (StoneInputField1.getText().toString().isEmpty()) {
+                                if (StoneInputField1.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (StoneInputField2.getText().toString().isEmpty()) {
+                                if (StoneInputField2.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указан коэффициент умножения", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (FactorInputField.getText().toString().isEmpty()) {
+                                if (FactorInputField.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано количество вычитаемых камней", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if  (EnteredResult.getText().toString().isEmpty()) {
+                                if  (EnteredResult.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
                                 break;
 
                             case 4:
-                                if (StoneInputField1.getText().toString().isEmpty()) {
+                                if (StoneInputField1.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (StoneInputField2.getText().toString().isEmpty()) {
+                                if (StoneInputField2.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указан коэффициент умножения", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (FactorInputField.getText().toString().isEmpty()) {
+                                if (FactorInputField.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано количество добавляемых камней", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if  (EnteredResult.getText().toString().isEmpty()) {
+                                if  (EnteredResult.getText().toString().isEmpty())
                                     Toast.makeText(this, "Не указано число выигрыша", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
                                 break;
                         }
                     }
 
-                    if (flFactor3Button && !flYesButton && !flNoButton) {
+                    if (flFactor3Button && !flYesButton && !flNoButton)
                         Toast.makeText(this, "Не выбрано условие повторения хода", Toast.LENGTH_SHORT).show();
-                        saveLayout = true;
-                    }
 
-                    if (flNoButton && !flMyLastOne && !flAnotherPlayer) {
+                    if (flNoButton && !flMyLastOne && !flAnotherPlayer)
                         Toast.makeText(this, "Не выбрано чей ход нельзя повторять", Toast.LENGTH_SHORT).show();
-                        saveLayout = true;
-                    }
 
                     int countLength = 0;
 
@@ -519,134 +471,89 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
                     if (EnteredResult.getText().toString().length() > 4)
                         countLength++;
 
-                    if (countLength > 1) {
+                    if (countLength > 1)
                         Toast.makeText(this, "Коэффициенты превышают допустимую длину", Toast.LENGTH_SHORT).show();
-                        saveLayout = true;
-                    }
                     else {
                         if (StoneInputField1.getText().toString().length() > 4 ||
                                 StoneInputField2.getText().toString().length() > 4 ||
                                 FactorInputField.getText().toString().length() > 4 ||
                                 EnteredResult.getText().toString().length() > 4) {
 
-                            if (StoneInputField1.getText().toString().length() > 4) {
+                            if (StoneInputField1.getText().toString().length() > 4)
                                 Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
-                            }
 
-                            if (StoneInputField2.getText().toString().length() > 4) {
+                            if (StoneInputField2.getText().toString().length() > 4)
                                 Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
-                            }
 
-                            if (FactorInputField.getText().toString().length() > 4) {
+                            if (FactorInputField.getText().toString().length() > 4)
                                 Toast.makeText(this, "Коэффициент умножения превышает допустимое значение", Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
-                            }
 
-                            if (EnteredResult.getText().toString().length() > 4) {
+                            if (EnteredResult.getText().toString().length() > 4)
                                 Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
-                            }
                         }
 
                         switch (indexOfSelectedItem) {
                             case 0:
-                                if (StoneInputField1.getText().toString().length() > 4) {
+                                if (StoneInputField1.getText().toString().length() > 4)
                                     Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (StoneInputField2.getText().toString().length() > 4) {
+                                if (StoneInputField2.getText().toString().length() > 4)
                                     Toast.makeText(this, "Коэффициент умножения превышает допустимое значение", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if  (EnteredResult.getText().toString().length() > 4) {
+                                if  (EnteredResult.getText().toString().length() > 4)
                                     Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
                                 break;
 
                             case 1:
-                                if (StoneInputField1.getText().toString().length() > 4) {
+                                if (StoneInputField1.getText().toString().length() > 4)
                                     Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (StoneInputField2.getText().toString().length() > 4) {
+                                if (StoneInputField2.getText().toString().length() > 4)
                                     Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if  (EnteredResult.getText().toString().length() > 4) {
+                                if  (EnteredResult.getText().toString().length() > 4)
                                     Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
                                 break;
 
                             case 2:
-                                if (StoneInputField1.getText().toString().length() > 4) {
+                                if (StoneInputField1.getText().toString().length() > 4)
                                     Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (StoneInputField2.getText().toString().length() > 1) {
+                                if (StoneInputField2.getText().toString().length() > 1)
                                     Toast.makeText(this, "Коэффициент возведения превышает допустимое значение", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if  (EnteredResult.getText().toString().length() > 4) {
+                                if  (EnteredResult.getText().toString().length() > 4)
                                     Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
                                 break;
 
                             case 3:
-                                if (StoneInputField1.getText().toString().length() > 4) {
+                                if (StoneInputField1.getText().toString().length() > 4)
                                     Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (StoneInputField2.getText().toString().length() > 4) {
+                                if (StoneInputField2.getText().toString().length() > 4)
                                     Toast.makeText(this, "Коэффициент умножения превышает допустимое значение", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (FactorInputField.getText().toString().length() > 4) {
+                                if (FactorInputField.getText().toString().length() > 4)
                                     Toast.makeText(this, "Количество вычитаемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if  (EnteredResult.getText().toString().length() > 4) {
+                                if  (EnteredResult.getText().toString().length() > 4)
                                     Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
                                 break;
 
                             case 4:
-                                if (StoneInputField1.getText().toString().length() > 4) {
+                                if (StoneInputField1.getText().toString().length() > 4)
                                     Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (StoneInputField2.getText().toString().length() > 4) {
+                                if (StoneInputField2.getText().toString().length() > 4)
                                     Toast.makeText(this, "Коэффициент умножения превышает допустимое значение", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if (FactorInputField.getText().toString().length() > 4) {
+                                if (FactorInputField.getText().toString().length() > 4)
                                     Toast.makeText(this, "Количество добавляемых камней превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
 
-                                if  (EnteredResult.getText().toString().length() > 4) {
+                                if  (EnteredResult.getText().toString().length() > 4)
                                     Toast.makeText(this, "Число выигрыша превышает допустимое", Toast.LENGTH_SHORT).show();
-                                    saveLayout = true;
-                                }
-
                                 break;
                         }
                     }
@@ -840,11 +747,11 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
 
                             if (ERROR) {
                                 Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
+                                saveLayout();
                                 ERROR = false;
                             }
                             else {
-                                getAnswerIsSelected = true;
+                                getAnswerWasTapped = true;
 
                                 ChooseAction.setVisibility(View.GONE);
                                 Rectangle1.setVisibility(View.GONE);
@@ -992,11 +899,11 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
 
                             if (ERROR) {
                                 Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
+                                saveLayout();
                                 ERROR = false;
                             }
                             else {
-                                getAnswerIsSelected = true;
+                                getAnswerWasTapped = true;
 
                                 ResultButton.setVisibility(View.GONE);
                                 StoneInputField1.setVisibility(View.GONE);
@@ -1200,11 +1107,11 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
 
                             if (ERROR) {
                                 Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
+                                saveLayout();
                                 ERROR = false;
                             }
                             else {
-                                getAnswerIsSelected = true;
+                                getAnswerWasTapped = true;
 
                                 ChooseAction.setVisibility(View.GONE);
                                 Rectangle1.setVisibility(View.GONE);
@@ -1263,11 +1170,11 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
 
                             if (ERROR) {
                                 Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
-                                saveLayout = true;
+                                saveLayout();
                                 ERROR = false;
                             }
                             else {
-                                getAnswerIsSelected = true;
+                                getAnswerWasTapped = true;
 
                                 ResultButton.setVisibility(View.GONE);
                                 StoneInputField1.setVisibility(View.GONE);
@@ -1293,7 +1200,7 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
 
-        if (flFactor2Button && !getAnswerIsSelected) {
+        if (flFactor2Button && !getAnswerWasTapped) {
             ChooseAction.setVisibility(View.VISIBLE);
             Rectangle1.setVisibility(View.VISIBLE);
             ListView.setVisibility(View.VISIBLE);
@@ -1303,17 +1210,20 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
             FactorInputField.setVisibility(View.GONE);
             EnteredResult.setVisibility(View.VISIBLE);
 
-            if (count2factors == 1 && count3factors > 0) {
+            if (count2factorsTapped == 1 && count3factorsTapped > 0) {
                 StoneInputField1.getText().clear();
                 StoneInputField2.getText().clear();
                 FactorInputField.getText().clear();
                 EnteredResult.getText().clear();
 
-                count3factors = 0;
+                count3factorsTapped = 0;
             }
+
+            if (indexOfSelectedItem == 3 || indexOfSelectedItem == 4)
+                FactorInputField.setVisibility(View.VISIBLE);
         }
 
-        if (flFactor3Button && !getAnswerIsSelected) {
+        if (flFactor3Button && !getAnswerWasTapped) {
             ChooseAction.setVisibility(View.GONE);
             Rectangle1.setVisibility(View.GONE);
             ListView.setVisibility(View.GONE);
@@ -1323,7 +1233,7 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
             FactorInputField.setVisibility(View.VISIBLE);
             EnteredResult.setVisibility(View.VISIBLE);
 
-            if (count3factors == 1 && count2factors > 0) {
+            if (count3factorsTapped == 1 && count2factorsTapped > 0) {
                 StoneInputField1.setHint("Введите количество добавляемых камней");
                 StoneInputField2.setHint("Введите количество добавляемых камней");
                 FactorInputField.setHint("Введите коэффициент умножения");
@@ -1334,58 +1244,14 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
                 FactorInputField.getText().clear();
                 EnteredResult.getText().clear();
 
-                count2factors = 0;
+                count2factorsTapped = 0;
             }
 
             if (indexOfSelectedItem != -1) {
-                ListView.getChildAt(indexOfSelectedItem).setBackgroundColor(Color.parseColor("#2a2a2a"));
+                ListView.getChildAt(indexOfSelectedItem).setBackgroundColor(Color.TRANSPARENT);
                 indexOfSelectedItem = -1;
                 somethingIsChecked = false;
             }
-        }
-
-        if (saveLayout) {
-            StoneInputField1.setText(saveStoneInputField1);
-            StoneInputField2.setText(saveStoneInputField2);
-            FactorInputField.setText(saveFactorInputField);
-            EnteredResult.setText(saveEnteredResult);
-
-            StoneInputField1.setSelection(StoneInputField1.getText().toString().length());
-            StoneInputField2.setSelection(StoneInputField2.getText().toString().length());
-            FactorInputField.setSelection(FactorInputField.getText().toString().length());
-            EnteredResult.setSelection(EnteredResult.getText().toString().length());
-
-            ListView.setSelection(saveIndexList);
-
-            switch (saveIndexList) {
-                case 0:
-                    StoneInputField2.setHint("Введите коэффициент умножения");
-                    FactorInputField.setVisibility(View.GONE);
-                    break;
-
-                case 1:
-                    StoneInputField2.setHint("Введите количество добавляемых камней");
-                    FactorInputField.setVisibility(View.GONE);
-                    break;
-
-                case 2:
-                    StoneInputField2.setHint("Введите коэффициент возведения");
-                    FactorInputField.setVisibility(View.GONE);
-                    break;
-
-                case 3:
-                    StoneInputField2.setHint("Введите коэффициент умножения");
-                    FactorInputField.setHint("Введите количество вычитаемых камней");
-                    FactorInputField.setVisibility(View.VISIBLE);
-                    break;
-
-                case 4:
-                    StoneInputField2.setHint("Введите коэффициент умножения");
-                    FactorInputField.setHint("Введите количество добавляемых камней");
-                    FactorInputField.setVisibility(View.VISIBLE);
-                    break;
-            }
-            saveLayout = false;
         }
 
         ListView.setOnItemClickListener((adapterView, view1, i, l) -> {
@@ -1394,9 +1260,9 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
                     FactorInputField.setVisibility(View.VISIBLE);
                 else
                     FactorInputField.setVisibility(View.GONE);
-                ListView.getChildAt(indexOfSelectedItem).setBackgroundColor(Color.parseColor("#2a2a2a"));
+                ListView.getChildAt(indexOfSelectedItem).setBackgroundColor(Color.TRANSPARENT);
                 indexOfSelectedItem = i;
-                view1.setBackgroundColor(Color.parseColor("#323232"));
+                view1.setBackgroundColor(Color.parseColor("#B3323232"));
             }
             else {
                 if (i == 3 || i == 4)
@@ -1404,7 +1270,7 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
                 else
                     FactorInputField.setVisibility(View.GONE);
                 indexOfSelectedItem = i;
-                view1.setBackgroundColor(Color.parseColor("#323232"));
+                view1.setBackgroundColor(Color.parseColor("#B3323232"));
                 somethingIsChecked = true;
             }
 
@@ -1432,5 +1298,48 @@ public class ComplexActivity extends AppCompatActivity implements View.OnClickLi
                     break;
             }
         });
+    }
+
+    private void saveLayout() {
+        StoneInputField1.setText(saveStoneInputField1);
+        StoneInputField2.setText(saveStoneInputField2);
+        FactorInputField.setText(saveFactorInputField);
+        EnteredResult.setText(saveEnteredResult);
+
+        StoneInputField1.setSelection(StoneInputField1.getText().toString().length());
+        StoneInputField2.setSelection(StoneInputField2.getText().toString().length());
+        FactorInputField.setSelection(FactorInputField.getText().toString().length());
+        EnteredResult.setSelection(EnteredResult.getText().toString().length());
+
+        ListView.setSelection(saveIndexList);
+
+        switch (saveIndexList) {
+            case 0:
+                StoneInputField2.setHint("Введите коэффициент умножения");
+                FactorInputField.setVisibility(View.GONE);
+                break;
+
+            case 1:
+                StoneInputField2.setHint("Введите количество добавляемых камней");
+                FactorInputField.setVisibility(View.GONE);
+                break;
+
+            case 2:
+                StoneInputField2.setHint("Введите коэффициент возведения");
+                FactorInputField.setVisibility(View.GONE);
+                break;
+
+            case 3:
+                StoneInputField2.setHint("Введите коэффициент умножения");
+                FactorInputField.setHint("Введите количество вычитаемых камней");
+                FactorInputField.setVisibility(View.VISIBLE);
+                break;
+
+            case 4:
+                StoneInputField2.setHint("Введите коэффициент умножения");
+                FactorInputField.setHint("Введите количество добавляемых камней");
+                FactorInputField.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }

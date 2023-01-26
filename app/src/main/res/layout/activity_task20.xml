@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/background"
+    android:background="@drawable/other_activities_background"
     tools:context=".Task20Activity">
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:textColor="@color/text"
+        android:textColor="@color/text_tasks_and_buttons"
         android:text="@string/_20"
         android:textSize="17sp" />
 
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:textColor="@color/text"
+        android:textColor="@color/text_tasks_and_buttons"
         android:text="@string/NumberOfHeaps"
         android:textSize="16sp" />
 
@@ -43,7 +43,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:textColor="@color/text"
+            android:textColor="@color/text_tasks_and_buttons"
             android:paddingEnd="10dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -59,7 +59,7 @@
             android:layout_weight="1"
             style="?android:attr/borderlessButtonStyle"
             android:background="@drawable/button_tasks"
-            android:textColor="@color/text"
+            android:textColor="@color/text_tasks_and_buttons"
             android:text="@string/_2Koef" />
 
         <Space
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_tasks"
-            android:textColor="@color/text"
+            android:textColor="@color/text_tasks_and_buttons"
             android:layout_weight="1"
             style="?android:attr/borderlessButtonStyle"
             android:text="@string/_3Koef" />
@@ -92,7 +92,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:textColor="@color/text"
+            android:textColor="@color/text_tasks_and_buttons"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
@@ -107,7 +107,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_tasks"
             android:text="@string/Yes"
-            android:textColor="@color/text"
+            android:textColor="@color/text_tasks_and_buttons"
             android:textSize="13sp" />
 
         <Button
@@ -118,7 +118,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_tasks"
             android:text="@string/No"
-            android:textColor="@color/text"
+            android:textColor="@color/text_tasks_and_buttons"
             android:textSize="13sp" />
 
     </LinearLayout>
@@ -142,7 +142,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_tasks"
             android:text="@string/MyLastOne"
-            android:textColor="@color/text"
+            android:textColor="@color/text_tasks_and_buttons"
             android:textSize="12sp" />
 
         <Button
@@ -153,7 +153,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_tasks"
             android:text="@string/AnotherPlayer"
-            android:textColor="@color/text"
+            android:textColor="@color/text_tasks_and_buttons"
             android:textSize="12sp" />
 
     </LinearLayout>
@@ -166,7 +166,7 @@
         android:paddingBottom="10dp"
         android:gravity="center"
         android:text="@string/ChooseAction"
-        android:textColor="@color/text"
+        android:textColor="@color/text_tasks_and_buttons"
         android:visibility="gone"
         android:textSize="16sp" />
 
@@ -184,8 +184,8 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="243dp"
-        android:background="@color/background"
-        android:divider="@color/button"
+        android:background="@android:color/transparent"
+        android:divider="@color/button_main_activity"
         android:dividerHeight="0.5dp"
         android:focusable="true"
         android:choiceMode="singleChoice"
@@ -213,8 +213,8 @@
         android:ems="10"
         android:hint="@string/NumberOfAddedStones"
         android:inputType="number"
-        android:textColor="@color/text"
-        android:textColorHint="@color/text2"
+        android:textColor="@color/text_tasks_and_buttons"
+        android:textColorHint="@color/text_of_hints"
         android:textSize="16sp"
         android:autofillHints="" />
 
@@ -229,8 +229,8 @@
         android:ems="10"
         android:hint="@string/NumberOfAddedStones"
         android:inputType="number"
-        android:textColor="@color/text"
-        android:textColorHint="@color/text2"
+        android:textColor="@color/text_tasks_and_buttons"
+        android:textColorHint="@color/text_of_hints"
         android:textSize="16sp"
         android:autofillHints="" />
 
@@ -245,8 +245,8 @@
         android:ems="10"
         android:hint="@string/KoefOfMultStones"
         android:inputType="number"
-        android:textColor="@color/text"
-        android:textColorHint="@color/text2"
+        android:textColor="@color/text_tasks_and_buttons"
+        android:textColorHint="@color/text_of_hints"
         android:textSize="16sp"
         android:autofillHints="" />
 
@@ -261,8 +261,8 @@
         android:ems="10"
         android:hint="@string/Winning"
         android:inputType="number"
-        android:textColor="@color/text"
-        android:textColorHint="@color/text2"
+        android:textColor="@color/text_tasks_and_buttons"
+        android:textColorHint="@color/text_of_hints"
         android:textSize="16sp"
         android:autofillHints="" />
 
@@ -279,7 +279,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/PossibleValuesOfS"
-            android:textColor="@color/text"
+            android:textColor="@color/text_tasks_and_buttons"
             android:textSize="18sp" />
 
         <TextView
@@ -289,7 +289,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text=""
-            android:textColor="@color/text"
+            android:textColor="@color/text_tasks_and_buttons"
             android:textSize="16sp" />
 
     </LinearLayout>
@@ -303,7 +303,7 @@
         android:visibility="gone"
         style="?android:attr/borderlessButtonStyle"
         android:background="@drawable/button_tasks"
-        android:textColor="@color/text"
+        android:textColor="@color/text_tasks_and_buttons"
         android:text="@string/ResultButton" />
 
     <Button
@@ -311,7 +311,7 @@
         android:layout_width="match_parent"
         style="?android:attr/borderlessButtonStyle"
         android:background="@drawable/button_tasks"
-        android:textColor="@color/text"
+        android:textColor="@color/text_tasks_and_buttons"
         android:visibility="gone"
         android:layout_height="wrap_content"
         android:text="@string/BeginFromStart" />

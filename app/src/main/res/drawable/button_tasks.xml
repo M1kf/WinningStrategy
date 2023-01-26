@@ -8,10 +8,12 @@
                 android:bottomRightRadius="20dp"
                 android:bottomLeftRadius="20dp"
                 android:topLeftRadius="20dp"/>
-            <solid android:color="@color/background"/>
+            <solid android:color="@android:color/transparent"/>
         </shape>
     </item>
-    <item android:state_pressed="true">
+    <item
+        android:alpha="0.5"
+        android:state_pressed="true">
         <shape
             android:shape="rectangle">
             <corners
@@ -19,7 +21,7 @@
                 android:bottomRightRadius="20dp"
                 android:bottomLeftRadius="20dp"
                 android:topLeftRadius="20dp"/>
-            <solid android:color="@color/buttonsPressed19"/>
+            <solid android:color="@color/button_other_activities_pressed"/>
         </shape>
     </item>
 </selector>
