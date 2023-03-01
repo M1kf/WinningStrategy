@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/other_activities_background"
     android:orientation="vertical"
-    tools:context=".InfoActivity">
+    tools:context=".Info">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,8 +22,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp"
-                android:textColor="@color/text_tasks_and_buttons"
                 android:text="@string/instruction"
+                android:textColor="@color/text_tasks_and_buttons"
                 android:textSize="23sp" />
 
             <View
@@ -61,8 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="792dp"
                 android:layout_marginBottom="10dp"
-                android:contentDescription="@string/photo_edited_task_in_app"
-                app:srcCompat="@drawable/filled_data_in_app" />
+                app:srcCompat="@drawable/example_of_task_1" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -77,18 +76,19 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="792dp"
-                android:contentDescription="@string/photo_of_result_in_app"
-                app:srcCompat="@drawable/result_in_app" />
+                app:srcCompat="@drawable/example_of_task_2" />
 
             <Button
                 android:id="@+id/returnToMainScreen"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                style="?android:attr/borderlessButtonStyle"
                 android:background="@drawable/button_tasks"
+                android:text="@string/return_to_the_main_screen"
+                android:textAllCaps="false"
                 android:textColor="@color/text_tasks_and_buttons"
-                android:text="@string/return_to_the_main_screen" />
+                android:textSize="19sp" />
 
         </LinearLayout>
 

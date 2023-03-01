@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/other_activities_background"
-    tools:context=".Task20Activity">
+    android:orientation="vertical"
+    tools:context=".Task20">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:textColor="@color/text_tasks_and_buttons"
         android:text="@string/_20"
+        android:textColor="@color/text_tasks_and_buttons"
         android:textSize="17sp" />
 
     <View
@@ -28,54 +28,54 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="10dp"
-        android:textColor="@color/text_tasks_and_buttons"
         android:text="@string/NumberOfHeaps"
+        android:textColor="@color/text_tasks_and_buttons"
         android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/layoutCountOfKoef"
         android:layout_width="match_parent"
-        android:layout_marginBottom="12dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
-            android:textColor="@color/text_tasks_and_buttons"
-            android:paddingEnd="10dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:paddingEnd="10dp"
             android:text="@string/NumberOfKoefs"
+            android:textColor="@color/text_tasks_and_buttons"
             tools:ignore="RtlSymmetry" />
 
         <Button
             android:id="@+id/koef2"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="?android:attr/borderlessButtonStyle"
             android:background="@drawable/button_tasks"
-            android:textColor="@color/text_tasks_and_buttons"
-            android:text="@string/_2Koef" />
+            android:text="@string/_2Koef"
+            android:textColor="@color/text_tasks_and_buttons" />
 
         <Space
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="0.3"/>
+            android:layout_weight="0.3" />
 
         <Button
             android:id="@+id/koef3"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_tasks"
-            android:textColor="@color/text_tasks_and_buttons"
             android:layout_weight="1"
-            style="?android:attr/borderlessButtonStyle"
-            android:text="@string/_3Koef" />
+            android:background="@drawable/button_tasks"
+            android:text="@string/_3Koef"
+            android:textColor="@color/text_tasks_and_buttons" />
 
     </LinearLayout>
 
@@ -83,21 +83,21 @@
         android:id="@+id/layoutBranch3Koef"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-6dp"
-        android:layout_marginBottom="3dp"
         android:layout_marginLeft="12dp"
+        android:layout_marginTop="-6dp"
         android:layout_marginRight="12dp"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:layout_marginBottom="3dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
-            android:textColor="@color/text_tasks_and_buttons"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:layout_marginStart="2dp"
-            android:text="@string/CannotRepeatTheMove" />
+            android:layout_weight="1"
+            android:text="@string/CannotRepeatTheMove"
+            android:textColor="@color/text_tasks_and_buttons" />
 
         <Button
             android:id="@+id/yesButton"
@@ -127,12 +127,12 @@
         android:id="@+id/whichMove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="0dp"
         android:layout_marginLeft="12dp"
+        android:layout_marginTop="3dp"
         android:layout_marginRight="12dp"
-        android:visibility="gone"
-        android:orientation="horizontal">
+        android:layout_marginBottom="0dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/myMove"
@@ -162,13 +162,13 @@
         android:id="@+id/chooseAction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:paddingTop="3dp"
         android:paddingBottom="10dp"
-        android:gravity="center"
         android:text="@string/ChooseAction"
         android:textColor="@color/text_tasks_and_buttons"
-        android:visibility="gone"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <View
         android:id="@+id/view1"
@@ -185,10 +185,10 @@
         android:layout_width="match_parent"
         android:layout_height="243dp"
         android:background="@android:color/transparent"
+        android:choiceMode="singleChoice"
         android:divider="@color/button_main_activity"
         android:dividerHeight="0.5dp"
         android:focusable="true"
-        android:choiceMode="singleChoice"
         android:visibility="gone" />
 
     <View
@@ -203,74 +203,74 @@
 
     <EditText
         android:id="@+id/editText1"
-        android:visibility="gone"
-        android:padding="12dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/NumberOfAddedStones"
         android:inputType="number"
+        android:padding="12dp"
         android:textColor="@color/text_tasks_and_buttons"
         android:textColorHint="@color/text_of_hints"
         android:textSize="16sp"
-        android:autofillHints="" />
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/editText2"
-        android:visibility="gone"
-        android:padding="12dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/NumberOfAddedStones"
         android:inputType="number"
+        android:padding="12dp"
         android:textColor="@color/text_tasks_and_buttons"
         android:textColorHint="@color/text_of_hints"
         android:textSize="16sp"
-        android:autofillHints="" />
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/editText3"
-        android:visibility="gone"
-        android:padding="12dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/KoefOfMultStones"
         android:inputType="number"
+        android:padding="12dp"
         android:textColor="@color/text_tasks_and_buttons"
         android:textColorHint="@color/text_of_hints"
         android:textSize="16sp"
-        android:autofillHints="" />
+        android:visibility="gone" />
 
     <EditText
         android:id="@+id/editText4"
-        android:visibility="gone"
-        android:padding="12dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/Winning"
         android:inputType="number"
+        android:padding="12dp"
         android:textColor="@color/text_tasks_and_buttons"
         android:textColorHint="@color/text_of_hints"
         android:textSize="16sp"
-        android:autofillHints="" />
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/answerLayout"
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
         android:layout_height="300dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -296,24 +296,24 @@
 
     <Button
         android:id="@+id/resultButton"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:visibility="gone"
-        style="?android:attr/borderlessButtonStyle"
         android:background="@drawable/button_tasks"
+        android:text="@string/ResultButton"
         android:textColor="@color/text_tasks_and_buttons"
-        android:text="@string/ResultButton" />
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/beginFromStart"
-        android:layout_width="match_parent"
         style="?android:attr/borderlessButtonStyle"
-        android:background="@drawable/button_tasks"
-        android:textColor="@color/text_tasks_and_buttons"
-        android:visibility="gone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/BeginFromStart" />
+        android:background="@drawable/button_tasks"
+        android:text="@string/BeginFromStart"
+        android:textColor="@color/text_tasks_and_buttons"
+        android:visibility="gone" />
 
 </LinearLayout>

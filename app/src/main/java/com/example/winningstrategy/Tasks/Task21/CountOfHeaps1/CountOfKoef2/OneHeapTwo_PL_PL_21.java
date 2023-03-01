@@ -11,55 +11,55 @@ public class OneHeapTwo_PL_PL_21 {
     private List<Integer> list = new ArrayList<>();
     private List<Integer> delete = new ArrayList<>();
 
-    public OneHeapTwo_PL_PL_21(int NumberOfAdded1, int NumberOfAdded2, int Winning){
+    public OneHeapTwo_PL_PL_21(int NumberOfAdded1, int NumberOfAdded2, int Winning) {
         this.NumberOfAdded1 = NumberOfAdded1;
         this.NumberOfAdded2 = NumberOfAdded2;
         this.Winning = Winning;
     }
 
-    private boolean Calculations(int x, int h){
-        if((h == 3 || h == 5) && x >= Winning)
+    private boolean Calculations(int x, int h) {
+        if ((h == 3 || h == 5) && x >= Winning)
             return true;
-        if(h == 5 && x < Winning)
+        if (h == 5 && x < Winning)
             return false;
-        if(h < 5 && x >= Winning)
+        if (h < 5 && x >= Winning)
             return false;
-        else{
-            if(h % 2 == 0)
+        else {
+            if (h % 2 == 0)
                 return Calculations(x + NumberOfAdded1, h + 1) || Calculations(x + NumberOfAdded2, h + 1);
             else
                 return Calculations(x + NumberOfAdded1, h + 1) && Calculations(x + NumberOfAdded2, h + 1);
         }
     }
 
-    private boolean CalculationsDelete(int x, int h){
-        if(h == 3 && x >= Winning)
+    private boolean CalculationsDelete(int x, int h) {
+        if (h == 3 && x >= Winning)
             return true;
-        if(h == 3 && x < Winning)
+        if (h == 3 && x < Winning)
             return false;
-        if(h < 3 && x >= Winning)
+        if (h < 3 && x >= Winning)
             return false;
-        else{
-            if(h % 2 == 0)
+        else {
+            if (h % 2 == 0)
                 return CalculationsDelete(x + NumberOfAdded1, h + 1) || CalculationsDelete(x + NumberOfAdded2, h + 1);
             else
                 return CalculationsDelete(x + NumberOfAdded1, h + 1) && CalculationsDelete(x + NumberOfAdded2, h + 1);
         }
     }
 
-    public List<Integer> getResult(){
-        for(int x = 1; x < Winning; x++){
-            if(Calculations(x, 1))
+    public List<Integer> getResult() {
+        for (int x = 1; x < Winning; x++) {
+            if (Calculations(x, 1))
                 list.add(x);
         }
-        for(int j = 1; j < Winning; j++){
-            if(CalculationsDelete(j, 1))
+        for (int j = 1; j < Winning; j++) {
+            if (CalculationsDelete(j, 1))
                 delete.add(j);
         }
 
-        for(int i = 0; i < list.size(); i++)
-            for(int j = 0; j < delete.size(); j++)
-                if(Objects.equals(list.get(i), delete.get(j)))
+        for (int i = 0; i < list.size(); i++)
+            for (int j = 0; j < delete.size(); j++)
+                if (Objects.equals(list.get(i), delete.get(j)))
                     list.remove(i);
 
         return list;
