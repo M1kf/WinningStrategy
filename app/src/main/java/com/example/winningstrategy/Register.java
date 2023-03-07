@@ -9,10 +9,8 @@ import android.text.TextWatcher;
 import android.widget.Button;
 
 import com.example.winningstrategy.DataBase.GeneratorOfKeys;
-import com.example.winningstrategy.DataBase.UserInfo;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.parse.ParseObject;
 
 import java.util.Objects;
 
@@ -29,14 +27,13 @@ public class Register extends AppCompatActivity {
         setupFloatingLabelError();
 
         commitEnter = findViewById(R.id.commitEnter);
-        DatabaseReference dataBase = FirebaseDatabase.getInstance().getReference();
         String ID = getIntent().getStringExtra("ID");
 
-        dataBase.child("Key sender").push().setValue(new UserInfo(key, ID));
+        writeDataOnServer("requested_keys", key, ID);
 
         commitEnter.setOnClickListener(view -> {
             if (accessGranted) {
-                dataBase.child("Verified keys").push().setValue(new UserInfo(key, ID));
+                writeDataOnServer("confirmed_keys", key, ID);
                 finish();
                 startActivity(new Intent(this, MainScreen.class));
             }
@@ -69,5 +66,12 @@ public class Register extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    private void writeDataOnServer(String theClassName, String key, String ID) {
+        ParseObject person = new ParseObject(theClassName);
+        person.put("Key", key);
+        person.put("ID", ID);
+        person.saveInBackground();
     }
 }

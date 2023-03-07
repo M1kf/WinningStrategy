@@ -37,4 +37,8 @@
     <string name="send_key">Запросить ключ у модератора</string>
     <string name="commit_sending">Подтвердить ввод</string>
     <string name="error_key">Ключ не подходит</string>
+
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="back4app_app_id">BkNirUBx8tB1xUQhBtWcTrSVKLqiMryRUWjQFSnk</string>
+    <string name="back4app_client_key">B2353Vz7Ku6YMOnKXraYOMQ3xGYa5i60hn7W46CA</string>
 </resources>
