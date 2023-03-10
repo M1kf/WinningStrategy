@@ -16,14 +16,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.winningstrategy.Tasks.Task21.CountOfHeaps1.CountOfKoef2.OneHeapTwo_PL_MU_21;
-import com.example.winningstrategy.Tasks.Task21.CountOfHeaps1.CountOfKoef2.OneHeapTwo_PL_MU_MN_21;
-import com.example.winningstrategy.Tasks.Task21.CountOfHeaps1.CountOfKoef2.OneHeapTwo_PL_MU_MU_21;
-import com.example.winningstrategy.Tasks.Task21.CountOfHeaps1.CountOfKoef2.OneHeapTwo_PL_MU_PL_21;
-import com.example.winningstrategy.Tasks.Task21.CountOfHeaps1.CountOfKoef2.OneHeapTwo_PL_PL_21;
-import com.example.winningstrategy.Tasks.Task21.CountOfHeaps1.CountOfKoef3.NoSame.OneHeapThreeNoSame2Player21;
-import com.example.winningstrategy.Tasks.Task21.CountOfHeaps1.CountOfKoef3.NoSame.OneHeapThreeNoSameMe21;
-import com.example.winningstrategy.Tasks.Task21.CountOfHeaps1.CountOfKoef3.OneHeapThree21;
+import com.example.winningstrategy.Tasks.CountOfHeaps1.Task21.CountOfKoef2.OneHeapTwo_PL_MU_21;
+import com.example.winningstrategy.Tasks.CountOfHeaps1.Task21.CountOfKoef2.OneHeapTwo_PL_MU_MN_21;
+import com.example.winningstrategy.Tasks.CountOfHeaps1.Task21.CountOfKoef2.OneHeapTwo_PL_MU_MU_21;
+import com.example.winningstrategy.Tasks.CountOfHeaps1.Task21.CountOfKoef2.OneHeapTwo_PL_MU_PL_21;
+import com.example.winningstrategy.Tasks.CountOfHeaps1.Task21.CountOfKoef2.OneHeapTwo_PL_PL_21;
+import com.example.winningstrategy.Tasks.CountOfHeaps1.Task21.CountOfKoef3.NoSame.OneHeapThreeNoSame2Player21;
+import com.example.winningstrategy.Tasks.CountOfHeaps1.Task21.CountOfKoef3.NoSame.OneHeapThreeNoSameMe21;
+import com.example.winningstrategy.Tasks.CountOfHeaps1.Task21.CountOfKoef3.OneHeapThree21;
 
 import java.util.List;
 
